@@ -10,7 +10,7 @@ class G
 	public static inline var PLAYER_SHOOT_TIMER:Float = 0.1;
 
 	public static inline var BULLET_MAX_COUNT:Int = 2;
-	public static inline var BULLET_SPEED:Float = 200;
+	public static inline var BULLET_SPEED:Float = 300;
 	public static inline var BULLET_DAMAGE:Float = 1;
 
 	public static inline var ENEMY_POINTS:Float = 10;

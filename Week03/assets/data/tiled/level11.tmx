@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="FloorTiles" tilewidth="16" tileheight="16">
+  <image source="../../images/tiles/FloorTiles.png" width="32" height="16"/>
+ </tileset>
+ <layer name="Floor" width="30" height="20">
+  <properties>
+   <property name="tileset" value="FloorTiles"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMAoGHjCN4lE8jDAABo4BaQ==
+  </data>
+ </layer>
+ <layer name="Danger" width="30" height="20">
+  <properties>
+   <property name="tileset" value="FloorTiles"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIJRMFwBEw3NxGc2LjlauGcUjILBCAAoyAAL
+  </data>
+ </layer>
+</map>
