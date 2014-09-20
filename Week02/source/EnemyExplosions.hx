@@ -31,7 +31,7 @@ class EnemyExplosions extends FlxTypedGroup<FlxEmitterExt>
 			this.add(emitter);
 		}
 
-		_sndExplosion = FlxG.sound.load(AssetPaths.Explosion2__mp3);
+		_sndExplosion = G.loadSound(AssetPaths.Explosion2__mp3);
 	}
 
 	override public function update():Void

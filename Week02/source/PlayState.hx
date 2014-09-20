@@ -55,7 +55,7 @@ class PlayState extends FlxState
 		_score = 0;
 		_multiplier = 1;
 
-		_sndBulletHit = FlxG.sound.load(AssetPaths.Hit_Hurt__mp3);
+		_sndBulletHit = G.loadSound(AssetPaths.Hit_Hurt__mp3);
 
 		FlxG.camera.fade(G.getBackgroundColor(), 1, true);
 	}

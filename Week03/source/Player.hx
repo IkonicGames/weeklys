@@ -16,8 +16,8 @@ class Player extends FlxSprite
 
 		this.makeGraphic(8, 12);
 
-		_sndJump = FlxG.sound.load(AssetPaths.jump__mp3);
-		_sndLand = FlxG.sound.load(AssetPaths.land__mp3);
+		_sndJump = G.loadSound(AssetPaths.jump__mp3);
+		_sndLand = G.loadSound(AssetPaths.land__mp3);
 
 		this.health = 0;
 		this.elasticity = 0;
@@ -27,7 +27,12 @@ class Player extends FlxSprite
 
 	override public function update():Void
 	{
+#if flash
 		if(FlxG.keys.pressed.SPACE && this.isTouching(FlxObject.FLOOR))
+#end
+#if mobile
+		if(FlxG.touches.getFirst() != null && this.isTouching(FlxObject.FLOOR))
+#end
 		{
 			this.velocity.y = G.PLAYER_JUMP;
 			_sndJump.play();

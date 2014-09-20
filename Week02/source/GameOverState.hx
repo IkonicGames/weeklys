@@ -59,7 +59,15 @@ class GameOverState extends FlxState
 	{
 		super.update();
 
+#if (web || flash)
 		if(FlxG.keys.justPressed.ANY)
 			FlxG.switchState(new PlayState());
+
+#end
+#if mobile
+		var touch = FlxG.touches.getFirst();
+		if(touch != null)
+			FlxG.switchState(new PlayState());
+#end
 	}
 }

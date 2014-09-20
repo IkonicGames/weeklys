@@ -1,8 +1,10 @@
 package ;
 
+import flixel.FlxG;
 import flixel.util.FlxSave;
 import flixel.util.FlxRandom;
 import flixel.util.FlxColorUtil;
+import flixel.system.FlxSound;
 
 class G
 {
@@ -30,6 +32,22 @@ class G
 
 		_bgColor = FlxColorUtil.HSVtoARGB(FlxRandom.floatRanged(0, 359), 0.5, 0.3, 255);
 		_pallet = [];
+	}
+
+	public static function loadSound(sound:String):FlxSound
+	{
+		var snd:String;
+		snd = sound.substring(0, sound.length - 3);
+
+#if flash
+		snd = snd + "mp3";
+#end
+
+#if cpp
+		snd = snd + "wav";
+#end
+		
+		return FlxG.sound.load(snd);
 	}
 
 	// HIGH SCORE

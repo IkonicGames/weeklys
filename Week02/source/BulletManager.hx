@@ -19,7 +19,7 @@ class BulletManager extends FlxSpriteGroup
 		_tmrShot = new FlxTimer(G.PLAYER_SHOOT_TIMER);
 		this.maxSize = G.BULLET_MAX_COUNT;
 
-		_sndShoot = FlxG.sound.load(AssetPaths.Laser_Shoot__mp3);
+		_sndShoot = G.loadSound(AssetPaths.Laser_Shoot__mp3);
 	}
 
 	override public function update():Void
