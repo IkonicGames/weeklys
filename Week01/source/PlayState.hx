@@ -16,7 +16,9 @@ import flixel.util.FlxPoint;
 import flixel.text.FlxText;
 import flixel.effects.particles.FlxEmitterExt;
 import flixel.util.FlxSave;
+import flixel.util.FlxDestroyUtil;
 import flixel.system.FlxSound;
+import flash.events.Event;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -53,7 +55,12 @@ class PlayState extends FlxState
 		_enemySpawnTimer = new FlxTimer(5, addEnemy);
 		addEnemy();
 
+#if flash
 		_txtDirections = new FlxText(FlxG.width / 2, FlxG.height * 0.75, 0, "WASD or Arrows to move.");
+#end
+#if mobile
+		_txtDirections = new FlxText(FlxG.width / 2, FlxG.height * 0.75, 0, "Slide your finger on the screen to move.");
+#end
 		_txtDirections.x -= _txtDirections.width / 2;
 		this.add(_txtDirections);
 
@@ -68,7 +75,16 @@ class PlayState extends FlxState
 		_emitter.makeParticles(AssetPaths.pixels__png,100, 0, true, 0);
 		this.add(_emitter);
 
+#if flash
 		_sndGameOver = FlxG.sound.load(AssetPaths.PlayerDied__mp3);
+#end
+#if mobile
+		_sndGameOver = FlxG.sound.load(AssetPaths.PlayerDied__wav);
+#end
+
+#if flash
+		FlxG.stage.dispatchEvent(new Event(Event.DEACTIVATE));
+#end
 	}
 	
 	/**
@@ -78,6 +94,9 @@ class PlayState extends FlxState
 	override public function destroy():Void
 	{
 		super.destroy();
+
+		FlxDestroyUtil.destroy(_player);
+		FlxDestroyUtil.destroy(_grpEnemy);
 	}
 
 	/**
@@ -92,7 +111,12 @@ class PlayState extends FlxState
 				resetEnemy(e);
 		});
 
+#if flash
 		if(FlxG.keys.firstJustPressed() != "" && _txtDirections.alive)
+#end
+#if mobile
+		if(FlxG.touches.getFirst() != null && _txtDirections.alive)
+#end
 			this.remove(_txtDirections);
 
 		if(_player.alive)
@@ -155,7 +179,6 @@ class PlayState extends FlxState
 
 		_emitter.at(_player);
 		_emitter.start(true, 2, 0, 100, 2);
-		_emitter.update();
 
 		_sndGameOver.play();
 	}

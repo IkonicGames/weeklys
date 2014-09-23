@@ -14,8 +14,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.misc.VarTween;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
-
-// TODO tweening the player back to the start breaks the game.
+import flash.events.Event;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -78,20 +77,23 @@ class PlayState extends FlxState
 		_txtLevel.size = 16;
 		this.add(_txtLevel);
 
-		_txtLives = new FlxText(8, 32, 0, "Lives - 0");
+		_txtLives = new FlxText(8, 32, 0, "Deaths - 0");
 		_txtLives.scrollFactor.set(0, 0);
 		_txtLives.size = 16;
 		this.add(_txtLives);
 
-		_txtInstructions = new FlxText(FlxG.width / 2, FlxG.height * 0.33, 0, "Press SPACE to Jump.");
-		_txtInstructions.size = 16;
+		_txtInstructions = new FlxText(FlxG.width / 2, FlxG.height * 0.33, 0, G.TXT_INSTRUCTIONS, 16);
 		_txtInstructions.x -= _txtInstructions.width / 2;
 		this.add(_txtInstructions);
 
-		_sndNextLevel = FlxG.sound.load(AssetPaths.levelComplete__mp3);
-		_sndHurt = FlxG.sound.load(AssetPaths.hurt__mp3);
-		_sndStart = FlxG.sound.load(AssetPaths.start__mp3);
+		_sndNextLevel = G.loadSound(AssetPaths.levelComplete__mp3);
+		_sndHurt = G.loadSound(AssetPaths.hurt__mp3);
+		_sndStart = G.loadSound(AssetPaths.start__mp3);
 		_sndStart.play();
+
+#if flash
+		// FlxG.stage.dispatchEvent(new Event(Event.DEACTIVATE));
+#end
 	}
 	
 	/**
@@ -170,14 +172,14 @@ class PlayState extends FlxState
 
 	private function onCollideDanger(player:FlxObject, tiles:FlxObject):Void
 	{
-		FlxG.camera.shake(0.01, 0.2);
+		FlxG.camera.shake(0.005, 0.2);
 		// _player.reset(FlxG.camera.scroll.x, G.PLAYER_START_Y);
 		_player.health++;
 		_player.active = false;
 		_player.solid = false;
 		FlxTween.tween(_player, { x:FlxG.camera.scroll.x, y:G.PLAYER_START_Y }, 0.25, { ease:FlxEase.sineOut, complete:onCollideTweenComplete });
 
-		_txtLives.text = "Lives - " + Std.string(_player.health);
+		_txtLives.text = "Deaths - " + Std.string(_player.health);
 
 		_sndHurt.play();
 	}

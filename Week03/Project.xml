@@ -2,7 +2,8 @@
 <project>
 	<!------------------------------APPLICATION SETTINGS---------------------------->
 	
-	<app title="Week03" file="Week03" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<meta package="com.ikonicgames.blockjumper" />
+	<app title="Week03" file="Week03" main="Main" version="1.0.0" company="Ikonic Games" />
 	
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 	<!--or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"!-->
@@ -23,7 +24,7 @@
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
 	
 	<!--Mobile-specific-->
-	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />
+	<window if="mobile" orientation="portrait" fullscreen="true" width="0" height="0" />
 	
 	<!--------------------------------PATHS SETTINGS-------------------------------->
 	
@@ -79,4 +80,10 @@
 	<!--------------------------------CUSTOM---------------------------------------->
 	
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->
+	<icon path="assets/icon.svg" />
+
+	<!-- Android -->
+	<include path="../Android.xml" />
+	<template path="libs/AndroidManifest.xml" rename="AndroidManifest.xml" if="android"/>
+	
 </project>

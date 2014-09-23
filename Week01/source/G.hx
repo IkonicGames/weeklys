@@ -29,6 +29,7 @@ class G
 				_gameSave.data.highScore = 0;
 		}
 	}
+
 	public static function setHighScore(score:Float):Void
 	{
 		checkGameSave();

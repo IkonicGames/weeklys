@@ -19,7 +19,7 @@ class Player extends FlxSprite
 		this.loadGraphic(AssetPaths.Player__png);
 		this.color = G.getPlayerColor();
 
-		_sndExplode = FlxG.sound.load(AssetPaths.Explosion1__mp3);
+		_sndExplode = G.loadSound(AssetPaths.Explosion1__mp3);
 	}
 
 	override public function update():Void
@@ -39,8 +39,21 @@ class Player extends FlxSprite
 	private function updateInput():Void
 	{
 		_moveDir = 0;
+
+#if (web || flash)
 		if(FlxG.keys.anyPressed(["A", "LEFT"])) _moveDir -= 1;
 		if(FlxG.keys.anyPressed(["D", "RIGHT"])) _moveDir += 1;
+#end
+
+#if mobile
+		var touch = FlxG.touches.getFirst();
+		if(touch != null)
+		{
+			if(touch.screenX < FlxG.width / 2) _moveDir -= 1;
+			if(touch.screenX > FlxG.width / 2) _moveDir += 1;
+		}
+
+#end
 	}
 
 	private function updateMovement():Void

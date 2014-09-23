@@ -2,6 +2,7 @@ package ;
 
 import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.util.FlxPoint;
 import flixel.util.FlxVector;
 import flixel.util.FlxMath;
 import flixel.effects.particles.FlxEmitter;
@@ -18,6 +19,11 @@ class Player extends FlxSprite
 
 	var _emitter:FlxEmitter;
 
+	var _padFirst:FlxPoint;
+	var _padPrev:FlxPoint;
+	var _padCurr:FlxPoint;
+	var _padDir:FlxVector;
+
 	public var emitter(get_emitter, null):FlxEmitter;
 	private function get_emitter():FlxEmitter
 	{
@@ -32,6 +38,11 @@ class Player extends FlxSprite
 
 		_moveDir = new FlxVector();
 		_moveVel = new FlxVector();
+
+		_padFirst = new FlxPoint();
+		_padPrev = new FlxPoint();
+		_padCurr = new FlxPoint();
+		_padDir = new FlxVector();
 
 		this.maxVelocity.set(G.PLAYER_MAX_SPEED, G.PLAYER_MAX_SPEED);
 		this.drag.set(G.PLAYER_DRAG, G.PLAYER_DRAG);
@@ -59,6 +70,7 @@ class Player extends FlxSprite
 	{
 		_moveDir.set(0, 0);
 
+#if flash
 		if(_up)
 			_moveDir.y -=1;
 		if(_down)
@@ -67,6 +79,11 @@ class Player extends FlxSprite
 			_moveDir.x -= 1;
 		if(_right)
 			_moveDir.x += 1;
+#end
+
+#if mobile
+		_moveDir.set(_padDir.x, _padDir.y);
+#end
 
 		if(_moveDir.x != 0 && _moveDir.y != 0)
 			_moveDir.normalize();
@@ -84,10 +101,29 @@ class Player extends FlxSprite
 
 	private function updateInput():Void
 	{
+#if flash
 		_up = FlxG.keys.anyPressed(["UP", "W"]);
 		_down = FlxG.keys.anyPressed(["DOWN", "S"]);
 		_left = FlxG.keys.anyPressed(["LEFT", "A"]);
 		_right = FlxG.keys.anyPressed(["RIGHT", "D"]);
+#end
+
+#if mobile
+		var touch = FlxG.touches.getFirst();
+		_padDir.set(0, 0);
+		if(touch != null)
+		{
+			_padCurr.set(touch.screenX, touch.screenY);
+			if(touch.justPressed)
+			{
+				_padPrev.set(touch.screenX, touch.screenY);
+			}
+			else
+			{
+				_padDir.set(_padCurr.x - _padPrev.x, _padCurr.y - _padPrev.y);
+			}
+		}
+#end
 	}
 
 	private function checkBounds():Void

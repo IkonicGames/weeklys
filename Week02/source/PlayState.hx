@@ -8,6 +8,7 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
+import flash.events.Event;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -55,9 +56,12 @@ class PlayState extends FlxState
 		_score = 0;
 		_multiplier = 1;
 
-		_sndBulletHit = FlxG.sound.load(AssetPaths.Hit_Hurt__mp3);
+		_sndBulletHit = G.loadSound(AssetPaths.Hit_Hurt__mp3);
 
 		FlxG.camera.fade(G.getBackgroundColor(), 1, true);
+#if flash
+		FlxG.stage.dispatchEvent(new Event(Event.DEACTIVATE));
+#end
 	}
 	
 	/**

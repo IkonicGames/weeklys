@@ -5,15 +5,17 @@ import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.Lib;
+import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
+import flixel.system.scaleModes.FillScaleMode;
 
 class Main extends Sprite 
 {
 	var gameWidth:Int = 480; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 320; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var initialState:Class<FlxState> = PlayState; // The FlxState the game starts with.
-	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
+	var zoom:Float = 1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
@@ -64,5 +66,10 @@ class Main extends Sprite
 		}
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
+
+		FlxG.scaleMode = new FillScaleMode();
+#if flash
+		stage.dispatchEvent(new Event(Event.DEACTIVATE));
+#end
 	}
 }

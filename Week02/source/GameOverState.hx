@@ -24,7 +24,13 @@ class GameOverState extends FlxState
 	{
 		super.create();
 
+#if flash
 		_txtPlayAgain = new FlxText(FlxG.width / 2, FlxG.height * 0.7, 0, "Press Any Key to Play Again!!!");
+#end
+
+#if mobile
+		_txtPlayAgain = new FlxText(FlxG.width / 2, FlxG.height * 0.7, 0, "Touch the Screen to Play Again!!!");
+#end
 		_txtPlayAgain.x -= _txtPlayAgain.width / 2;
 		_txtPlayAgain.color = G.getPlayerColor();
 		this.add(_txtPlayAgain);
@@ -59,7 +65,15 @@ class GameOverState extends FlxState
 	{
 		super.update();
 
+#if (web || flash)
 		if(FlxG.keys.justPressed.ANY)
 			FlxG.switchState(new PlayState());
+
+#end
+#if mobile
+		var touch = FlxG.touches.getFirst();
+		if(touch != null)
+			FlxG.switchState(new PlayState());
+#end
 	}
 }

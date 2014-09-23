@@ -1,5 +1,8 @@
 package ;
 
+import flixel.FlxG;
+import flixel.system.FlxSound;
+
 class G
 {
 	public static inline var TILES_FLOOR:String = "images/FloorTiles.png";
@@ -15,4 +18,34 @@ class G
 	public static inline var PLAYER_MAX_FALL:Float = 1000;
 
 	public static inline var GRAVITY:Float = 1000;
+
+	public static inline var TXT_PLAY_AGAIN:String = 
+#if flash
+		"Press Space to Play Again!";
+#end
+#if cpp
+		"Tap the Screen to Play Again.";
+#end
+
+	public static inline var TXT_INSTRUCTIONS:String =
+#if flash
+		"Press Space to Jump.";
+#end
+#if mobile
+		"Tap the Screen to Jump.";
+#end
+
+	public static function loadSound(sound:String):FlxSound
+	{
+		var snd:String = sound.substring(0, sound.length - 3);
+#if flash
+		snd = snd + "mp3";
+#end
+
+#if cpp
+		snd = snd + "wav";
+#end
+
+		return FlxG.sound.load(snd);	
+	}
 }

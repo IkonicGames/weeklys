@@ -11,20 +11,27 @@ class GameOverState extends FlxState
 	var _txtLives:FlxText;
 	var _txtPlayAgain:FlxText;
 
-	public function new(deaths:Int)
+	var _deaths:Int;
+	public function new(deaths:Int = 0)
 	{
 		super();
 		
-		_txtLives = new FlxText(FlxG.width / 2, FlxG.height * 0.33, 0, "You Died " + Std.string(deaths) + " times.");
-		// _txtLives.size = 16;
+		_deaths = deaths;
+	}
+
+	override public function create():Void
+	{
+		super.create();
+
+
+		_txtLives = new FlxText(FlxG.width / 2, FlxG.height * 0.33, 0, "You Died " + Std.string(_deaths) + " times.", 16);
 		_txtLives.x -= _txtLives.width / 2;
 		this.add(_txtLives);
 
-		_txtPlayAgain = new FlxText(FlxG.width / 2, FlxG.height * 0.5, 0, "Press SPACE to Play Again.");
-		// _txtPlayAgain.size = 16;
+		_txtPlayAgain = new FlxText(FlxG.width / 2, FlxG.height * 0.5, 0, G.TXT_PLAY_AGAIN, 16);
 		_txtPlayAgain.x -= _txtPlayAgain.width / 2;
 		this.add(_txtPlayAgain);
-
+		
 		FlxG.camera.fade(0, 0.33, true);
 	}
 
@@ -32,7 +39,12 @@ class GameOverState extends FlxState
 	{
 		super.update();
 
+#if flash
 		if(FlxG.keys.pressed.SPACE)
+#end
+#if mobile
+		if(FlxG.touches.getFirst() != null)
+#end
 			FlxG.switchState(new PlayState());
 	}
 }
