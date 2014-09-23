@@ -14,7 +14,10 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.misc.VarTween;
 import flixel.system.FlxSound;
 import flixel.util.FlxColor;
+<<<<<<< HEAD
 import flash.events.Event;
+=======
+>>>>>>> 96ed0e8f2fd9c306c525aaee56ee7462a178bba8
 
 /**
  * A FlxState which can be used for the actual gameplay.
