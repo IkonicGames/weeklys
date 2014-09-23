@@ -24,7 +24,7 @@ class ApplicationMain {
 		
 		
 		
-		//nme.Lib.setPackage("HaxeFlixel", "Week01", "com.example.myapp", "0.0.1");
+		//nme.Lib.setPackage("Ikonic Games", "Week01", "com.ikonicgames.personalspaceinvaders", "1.0.0");
 		
 		loaderInfo = openfl.Lib.current.loaderInfo;
 		

@@ -36,21 +36,13 @@ class GameOverState extends FlxState
 		_txtPlayAgain.x -= _txtPlayAgain.width / 2;
 		this.add(_txtPlayAgain);
 
-<<<<<<< HEAD
 		var txt:FlxText = new FlxText(FlxG.width / 2, FlxG.height * 0.3, 0, "Time: " + G.getTimeString(_score));
-=======
-		var txt:FlxText = new FlxText(FlxG.width / 2, FlxG.height * 0.3, 0, "Time: " + G.getTimeString(score));
->>>>>>> 96ed0e8f2fd9c306c525aaee56ee7462a178bba8
 		txt.x -= txt.width / 2;
 		this.add(txt);
 
 		if(G.checkHighScore(_score))
 		{
-<<<<<<< HEAD
 			G.setHighScore(_score);
-=======
-			G.setHighScore(score);
->>>>>>> 96ed0e8f2fd9c306c525aaee56ee7462a178bba8
 			txt = new FlxText(FlxG.width / 2, FlxG.height / 2, 0, "New Survival Record!");
 			txt.x -= txt.width / 2;
 			this.add(txt);

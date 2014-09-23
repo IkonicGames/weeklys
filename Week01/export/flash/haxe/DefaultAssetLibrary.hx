@@ -48,6 +48,10 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/data/data-goes-here.txt", __ASSET__assets_data_data_goes_here_txt);
 		type.set ("assets/data/data-goes-here.txt", AssetType.TEXT);
+		className.set ("assets/icon.svg", __ASSET__assets_icon_svg);
+		type.set ("assets/icon.svg", AssetType.TEXT);
+		className.set ("assets/icon512x512.png", __ASSET__assets_icon512x512_png);
+		type.set ("assets/icon512x512.png", AssetType.IMAGE);
 		className.set ("assets/images/Enemies.pickle", __ASSET__assets_images_enemies_pickle);
 		type.set ("assets/images/Enemies.pickle", AssetType.BINARY);
 		className.set ("assets/images/Enemy01.png", __ASSET__assets_images_enemy01_png);
@@ -80,6 +84,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "assets/data/data-goes-here.txt";
 		path.set (id, id);
 		type.set (id, AssetType.TEXT);
+		id = "assets/icon.svg";
+		path.set (id, id);
+		type.set (id, AssetType.TEXT);
+		id = "assets/icon512x512.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "assets/images/Enemies.pickle";
 		path.set (id, id);
 		type.set (id, AssetType.BINARY);
@@ -126,6 +136,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/data/data-goes-here.txt", __ASSET__assets_data_data_goes_here_txt);
 		type.set ("assets/data/data-goes-here.txt", AssetType.TEXT);
+		
+		className.set ("assets/icon.svg", __ASSET__assets_icon_svg);
+		type.set ("assets/icon.svg", AssetType.TEXT);
+		
+		className.set ("assets/icon512x512.png", __ASSET__assets_icon512x512_png);
+		type.set ("assets/icon512x512.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/Enemies.pickle", __ASSET__assets_images_enemies_pickle);
 		type.set ("assets/images/Enemies.pickle", AssetType.BINARY);
@@ -780,6 +796,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 #elseif flash
 
 @:keep class __ASSET__assets_data_data_goes_here_txt extends openfl.utils.ByteArray { }
+@:keep class __ASSET__assets_icon_svg extends openfl.utils.ByteArray { }
+@:keep class __ASSET__assets_icon512x512_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_enemies_pickle extends openfl.utils.ByteArray { }
 @:keep class __ASSET__assets_images_enemy01_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_images_go_here_txt extends openfl.utils.ByteArray { }
@@ -811,10 +829,14 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
 #elseif (windows || mac || linux)
 
 
 @:file("assets/data/data-goes-here.txt") class __ASSET__assets_data_data_goes_here_txt extends flash.utils.ByteArray {}
+@:file("assets/icon.svg") class __ASSET__assets_icon_svg extends flash.utils.ByteArray {}
+@:bitmap("assets/icon512x512.png") class __ASSET__assets_icon512x512_png extends flash.display.BitmapData {}
 @:file("assets/images/Enemies.pickle") class __ASSET__assets_images_enemies_pickle extends flash.utils.ByteArray {}
 @:bitmap("assets/images/Enemy01.png") class __ASSET__assets_images_enemy01_png extends flash.display.BitmapData {}
 @:file("assets/images/images-go-here.txt") class __ASSET__assets_images_images_go_here_txt extends flash.utils.ByteArray {}

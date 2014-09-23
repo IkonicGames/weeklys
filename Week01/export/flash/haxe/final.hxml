@@ -10,6 +10,7 @@
 -cp source
 -cp /usr/lib/haxe/lib/openfl/2,0,1/backends/flash
 -cp /usr/lib/haxe/lib/openfl/2,0,1/backends/flash
+-cp ..
 -D tools=1.5.7
 -D FLX_NO_DEBUG
 -D NAPE_RELEASE_BUILD
