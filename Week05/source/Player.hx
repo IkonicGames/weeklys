@@ -19,6 +19,7 @@ class Player extends FlxSprite
 		_moveDir = new FlxVector();
 
 		this.velocity.y = 1;
+		this.elasticity = G.PLR_ELACTICIY;
 
 		this.makeGraphic(16, 16);
 	}
