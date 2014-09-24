@@ -3,21 +3,36 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.FlxObject;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
+import flixel.util.FlxColor;
 
 /**
  * A FlxState which can be used for the actual gameplay.
  */
 class PlayState extends FlxState
 {
+	var _player:Player;
+	var _ground:FlxSprite;
+
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
 	override public function create():Void
 	{
 		super.create();
+
+		_ground = new FlxSprite(0, FlxG.height / 2);
+		_ground.makeGraphic(FlxG.width, Std.int(FlxG.height / 2));
+		_ground.color = FlxColor.BROWN;
+		this.add(_ground);
+
+		_player = new Player();
+		_player.x = FlxG.width / 2;
+		_player.y = FlxG.height / 2;
+		this.add(_player);
 	}
 	
 	/**
@@ -35,5 +50,12 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+
+		FlxG.overlap(_player, _ground, onOverlapGround);
 	}	
+
+	private function onOverlapGround(player:FlxObject, ground:FlxObject):Void
+	{
+		_player.setInGround();
+	}
 }
