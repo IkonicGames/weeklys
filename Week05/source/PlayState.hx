@@ -20,6 +20,14 @@ class PlayState extends FlxState
 	var _ground:FlxSprite;
 	var _bounds:FlxGroup;
 
+	var _mgrEdible:ObjectSpawner<Edible>;
+	var _mgrPlane:ObjectSpawner<Plane>;
+	var _bombSpawner:BombSpawner;
+
+	var _gameHud:GameHUD;
+	var _scoreMult:Int;
+	var _scoreMultPool:Float;
+
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -27,11 +35,14 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		FlxG.worldBounds.set(-100, -100, FlxG.width + 200, FlxG.height + 200);
+		_scoreMult = 1;
+		_scoreMultPool = 0;
+		FlxG.worldBounds.set(-50, -50, FlxG.width + 100, FlxG.height + 100);
 
-		_ground = new FlxSprite(0, FlxG.height / 2);
-		_ground.makeGraphic(FlxG.width, Std.int(FlxG.height / 2));
+		_ground = new FlxSprite(0, FlxG.height * 0.6);
+		_ground.makeGraphic(FlxG.width, Std.int(FlxG.height * 0.4));
 		_ground.color = FlxColor.BROWN;
+		_ground.immovable = true;
 		this.add(_ground);
 
 		_player = new Player();
@@ -48,6 +59,18 @@ class PlayState extends FlxState
 			obj.immovable = true;
 		});
 		this.add(_bounds);
+
+		_mgrEdible = new ObjectSpawner<Edible>(Edible, G.EDBL_MGR_COUNT_MIN, G.EDBL_MGR_COUNT_MAX, G.EDBL_MGR_COUNT_TIME, G.EDBL_MGR_SPAWN_CHANCE, G.EDBL_HEIGHT_MIN, G.EDBL_HEIGHT_MAX);
+		this.add(_mgrEdible);
+
+		_mgrPlane = new ObjectSpawner<Plane>(Plane, G.PLN_COUNT_MIN, G.PLN_COUNT_MAX, G.PLN_COUNT_TIME, G.PLN_SPAWN_CHANCE, G.PLN_HEIGHT_MIN, G.PLN_HEIGHT_MAX);
+		this.add(_mgrPlane);
+
+		_bombSpawner = new BombSpawner();
+		this.add(_bombSpawner);
+
+		_gameHud = new GameHUD();
+		this.add(_gameHud);
 	}
 	
 	/**
@@ -68,10 +91,40 @@ class PlayState extends FlxState
 
 		FlxG.overlap(_player, _ground, onOverlapGround);
 		FlxG.collide(_player, _bounds);
+
+		FlxG.overlap(_player, _mgrEdible, onOverlapEdible);
+
+		FlxG.collide(_bombSpawner, _ground, onBombHitGround);
+
+		if(!_player.inGround)
+		{
+			_scoreMultPool += FlxG.elapsed;
+			while(_scoreMultPool > G.SCORE_AIR_TIME)
+			{
+				_player.score += _scoreMult;
+				_scoreMultPool -= G.SCORE_AIR_TIME;
+			}
+		}
+
+		_gameHud.setScore(_player.score);
+		_gameHud.setMult(_scoreMult);
 	}	
 
 	private function onOverlapGround(player:FlxObject, ground:FlxObject):Void
 	{
 		_player.setInGround();
+		_scoreMult = 1;
+	}
+
+	public function onOverlapEdible(player:FlxObject, edible:FlxObject):Void
+	{
+		edible.kill();
+		_player.score += G.EDBL_POINTS * _scoreMult;
+		_scoreMult++;
+	}
+	
+	public function onBombHitGround(bomb:FlxObject, ground:FlxObject):Void
+	{
+		bomb.kill();
 	}
 }

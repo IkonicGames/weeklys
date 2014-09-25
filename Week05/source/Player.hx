@@ -7,9 +7,17 @@ import flixel.util.FlxAngle;
 
 class Player extends FlxSprite
 {
+	public var score:Int;
+
+
 	var _moveDir:FlxVector;
 	var _inputDir:Float;
 	var _inGround:Bool;
+	public var inGround(get_inGround, null):Bool;
+	private function get_inGround():Bool
+	{
+		return _inGround;
+	}
 
 	public function new()
 	{
@@ -21,7 +29,7 @@ class Player extends FlxSprite
 		this.velocity.y = 1;
 		this.elasticity = G.PLR_ELACTICIY;
 
-		this.makeGraphic(16, 16);
+		this.makeGraphic(24, 24);
 	}
 
 	override public function update():Void
