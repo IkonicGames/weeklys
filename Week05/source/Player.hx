@@ -5,10 +5,15 @@ import flixel.FlxSprite;
 import flixel.util.FlxVector;
 import flixel.util.FlxAngle;
 import flixel.util.FlxMath;
+import flixel.util.FlxSpriteUtil;
+import flixel.util.FlxColor;
+import flixel.addons.effects.FlxTrail;
 
 class Player extends FlxSprite
 {
 	public var score:Int;
+
+	var _tail:FlxTrail;
 
 	var _moveDir:FlxVector;
 	var _inputDir:Float;
@@ -31,8 +36,11 @@ class Player extends FlxSprite
 		this.velocity.y = 1;
 		this.elasticity = G.PLR_ELACTICIY;
 
-		this.makeGraphic(24, 24);
+		this.makeGraphic(24, 24, FlxColor.TRANSPARENT);
+		FlxSpriteUtil.drawCircle(this, -1, -1, -1, FlxColor.WHITE);
 
+		_tail = new FlxTrail(this, null, 15, 3, 1, 0);
+		FlxG.state.add(_tail);
 	}
 
 	override public function update():Void

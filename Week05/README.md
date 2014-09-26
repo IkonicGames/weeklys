@@ -17,8 +17,9 @@ When the player eats their growin tail.
 
 
 ### TODO
-Player tail
 Game Over
+High Score
+Bomb Impact (Ground and Player);
 Graphics
 Particles
 Directions?

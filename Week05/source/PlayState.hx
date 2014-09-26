@@ -91,9 +91,7 @@ class PlayState extends FlxState
 
 		FlxG.overlap(_player, _ground, onOverlapGround);
 		FlxG.collide(_player, _bounds);
-
 		FlxG.overlap(_player, _mgrEdible, onOverlapEdible);
-
 		FlxG.collide(_bombSpawner, _ground, onBombHitGround);
 
 		if(!_player.inGround)
