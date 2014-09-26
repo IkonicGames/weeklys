@@ -108,6 +108,7 @@ class PlayState extends FlxState
 
 		_gameHud.setScore(_player.score);
 		_gameHud.setMult(_scoreMult);
+		_gameHud.setHealthPct(_player.health / G.PLR_HEALTH_START);
 	}	
 
 	private function onOverlapGround(player:FlxObject, ground:FlxObject):Void
@@ -120,6 +121,7 @@ class PlayState extends FlxState
 	{
 		edible.kill();
 		_player.score += G.EDBL_POINTS * _scoreMult;
+		_player.addHealth(G.EDBL_HEALTH_BONUS * _scoreMult);
 		_scoreMult++;
 	}
 	

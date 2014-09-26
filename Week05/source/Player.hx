@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxVector;
 import flixel.util.FlxAngle;
+import flixel.util.FlxMath;
 
 class Player extends FlxSprite
 {
@@ -23,6 +24,8 @@ class Player extends FlxSprite
 	{
 		super();
 
+		this.health = G.PLR_HEALTH_START;
+
 		_inGround = true;
 		_moveDir = new FlxVector();
 
@@ -38,6 +41,10 @@ class Player extends FlxSprite
 
 		updateInput();
 		updateMovement();
+
+		this.health -= G.PLR_HEALTH_DECAY * FlxG.elapsed;
+		if(this.health <= 0)
+			this.kill();
 	}
 
 	private function updateMovement():Void
@@ -77,5 +84,11 @@ class Player extends FlxSprite
 	public function setInGround():Void
 	{
 		_inGround = true;
+	}
+
+	public function addHealth(add:Float):Void
+	{
+		this.health += add;
+		this.health = FlxMath.bound(this.health, 0, G.PLR_HEALTH_START);
 	}
 }
