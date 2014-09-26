@@ -8,7 +8,7 @@ class G
 	public static inline var PLR_AIR_GRAVITY:Float = 200;
 	public static inline var PLR_MAX_SPEED:Float = 200;
 	public static inline var PLR_ELACTICIY:Float = 0.5;
-	public static inline var PLR_HEALTH_START:Float = 1000;
+	public static inline var PLR_HEALTH_START:Float = 100; //1000;
 	public static inline var PLR_HEALTH_DECAY:Float = 30;
 
 	public static inline var EDBL_SPD_MIN:Float = 40;

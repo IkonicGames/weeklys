@@ -10,7 +10,6 @@ class Player extends FlxSprite
 {
 	public var score:Int;
 
-
 	var _moveDir:FlxVector;
 	var _inputDir:Float;
 	var _inGround:Bool;
@@ -33,6 +32,7 @@ class Player extends FlxSprite
 		this.elasticity = G.PLR_ELACTICIY;
 
 		this.makeGraphic(24, 24);
+
 	}
 
 	override public function update():Void

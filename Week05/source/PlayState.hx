@@ -106,6 +106,12 @@ class PlayState extends FlxState
 			}
 		}
 
+		if(_player.health <= 0)
+		{
+			_player.kill();
+			FlxG.switchState(new GameOverState(_player.score));
+		}
+
 		_gameHud.setScore(_player.score);
 		_gameHud.setMult(_scoreMult);
 		_gameHud.setHealthPct(_player.health / G.PLR_HEALTH_START);
