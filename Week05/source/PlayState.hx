@@ -8,7 +8,6 @@ import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.util.FlxColor;
-import flixel.FlxObject;
 import flixel.group.FlxGroup;
 
 /**
@@ -23,6 +22,7 @@ class PlayState extends FlxState
 	var _mgrEdible:ObjectSpawner<Edible>;
 	var _mgrPlane:ObjectSpawner<Plane>;
 	var _bombSpawner:BombSpawner;
+	var _mgrExplosions:Explosions;
 
 	var _gameHud:GameHUD;
 	var _scoreMult:Int;
@@ -66,8 +66,12 @@ class PlayState extends FlxState
 		_mgrPlane = new ObjectSpawner<Plane>(Plane, G.PLN_COUNT_MIN, G.PLN_COUNT_MAX, G.PLN_COUNT_TIME, G.PLN_SPAWN_CHANCE, G.PLN_HEIGHT_MIN, G.PLN_HEIGHT_MAX);
 		this.add(_mgrPlane);
 
+		_mgrExplosions = new Explosions();
+		this.add(_mgrExplosions);
+
 		_bombSpawner = new BombSpawner();
 		this.add(_bombSpawner);
+
 
 		_gameHud = new GameHUD();
 		this.add(_gameHud);
@@ -132,5 +136,6 @@ class PlayState extends FlxState
 	public function onBombHitGround(bomb:FlxObject, ground:FlxObject):Void
 	{
 		bomb.kill();
+		_mgrExplosions.explodeAt(bomb.x, bomb.y);
 	}
 }

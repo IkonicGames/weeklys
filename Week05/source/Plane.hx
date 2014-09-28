@@ -16,6 +16,7 @@ class Plane extends FlxSprite
 
 		this.makeGraphic(32, 12);
 
+
 		resetBombDrop();
 	}
 

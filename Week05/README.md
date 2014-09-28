@@ -17,8 +17,6 @@ When the player eats their growin tail.
 
 
 ### TODO
-Game Over
-High Score
 Bomb Impact (Ground and Player);
 Graphics
 Particles
