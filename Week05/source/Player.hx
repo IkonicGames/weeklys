@@ -106,4 +106,11 @@ class Player extends FlxSprite
 		this.health += add;
 		this.health = FlxMath.bound(this.health, 0, G.PLR_HEALTH_START);
 	}
+
+	override public function hurt(Damage:Float):Void
+	{
+		super.hurt(Damage);
+
+		FlxG.camera.flash(FlxColor.RED, 0.05);
+	}
 }

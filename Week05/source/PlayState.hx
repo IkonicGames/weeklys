@@ -70,7 +70,7 @@ class PlayState extends FlxState
 		_mgrPlane = new ObjectSpawner<Plane>(Plane, G.PLN_COUNT_MIN, G.PLN_COUNT_MAX, G.PLN_COUNT_TIME, G.PLN_SPAWN_CHANCE, G.PLN_HEIGHT_MIN, G.PLN_HEIGHT_MAX);
 		this.add(_mgrPlane);
 
-		_mgrExplosions = new Explosions();
+		_mgrExplosions = new Explosions(_player);
 		this.add(_mgrExplosions);
 
 		_bombSpawner = new BombSpawner();
@@ -142,19 +142,19 @@ class PlayState extends FlxState
 		_player.addHealth(G.EDBL_HEALTH_BONUS * _scoreMult);
 		_scoreMult++;
 
-		_sndEat.play();
+		_sndEat.play(true);
 	}
 	
 	public function onBombHitGround(bomb:FlxObject, ground:FlxObject):Void
 	{
 		bomb.kill();
-		_mgrExplosions.explodeAt(bomb.x, bomb.y, ExplType.Bomb);
+		_mgrExplosions.explodeAt(cast bomb, ExplType.Bomb);
 	}
 
 	private function onBombHitPlayer(bomb:FlxObject, player:FlxObject):Void
 	{
 		bomb.kill();
-		_mgrExplosions.explodeAt(bomb.x, bomb.y, ExplType.Bomb);
+		_mgrExplosions.explodeAt(cast bomb, ExplType.Bomb);
 		_player.hurt(G.BOMB_DMG);
 	}
 }

@@ -4,35 +4,33 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.effects.particles.FlxEmitterExt;
+import flixel.effects.particles.FlxEmitter;
 import flixel.util.FlxPool;
-import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxColor;
 import flixel.system.FlxSound;
+import flixel.effects.particles.FlxParticle;
+import flixel.util.FlxMath;
 
 class Explosions extends FlxGroup
 {
 
 	var _emitters:FlxPool<FlxEmitterExt>;
-	var _explostions:FlxPool<FlxSprite>;
+	var _poppers:FlxPool<FlxEmitter>;
 
 	var _sndExplosions:FlxSound;
 
-	public function new() 
+	var _player:Player;
+
+	public function new(player:Player) 
 	{
 		super();
 
 		_emitters = new FlxPool<FlxEmitterExt>(FlxEmitterExt);
-		_explostions = new FlxPool<FlxSprite>(FlxSprite);
-
-		for(i in 0...5)
-		{
-			var explosion = new FlxSprite();
-			explosion.makeGraphic(G.BOMB_EXPLOSION_SIZE, G.BOMB_EXPLOSION_SIZE, FlxColor.TRANSPARENT);
-			FlxSpriteUtil.drawCircle(explosion);
-			_explostions.put(explosion);
-		}
+		_poppers = new FlxPool<FlxEmitter>(FlxEmitter);
 
 		_sndExplosions = FlxG.sound.load(AssetPaths.Explosion__mp3);
+
+		_player = player;
 	}
 
 	override public function update():Void
@@ -41,30 +39,45 @@ class Explosions extends FlxGroup
 
 		this.forEachOfType(FlxEmitterExt, function(emitter:FlxEmitterExt):Void {
 			if(!emitter.members[0].active)
+			{
 				emitter.kill();
+				_emitters.put(emitter);
+			}
 		});
 
-		this.forEachOfType(FlxSprite, function(explosion:FlxSprite):Void {
-			this.remove(explosion);
-			_explostions.put(explosion);
+		this.forEachOfType(FlxEmitter, function(popper:FlxEmitter):Void {
+			if(!popper.members[0].active)
+			{
+				popper.kill();
+				_poppers.put(popper);
+			}
 		});
 	}
 
-	public function explodeAt(X:Float, Y:Float, type:ExplType):Void
+	public function explodeAt(sprite:FlxSprite, type:ExplType):Void
 	{
 		var emitter = getEmitter();
-		emitter.setPosition(X, Y);
+		emitter.setPosition(sprite.x, sprite.y);
 		emitter.start(true, G.BOMB_EXPLOSION_LIFE);
+
+		var popper = getPopper();
+		popper.setPosition(sprite.x, sprite.y);
+		popper.start(true, G.BOMB_EXPLOSION_LIFE / 2);
 
 		if(type == ExplType.Bomb)
 		{
 			FlxG.camera.shake(0.01, 0.1);
-			var explosion = _explostions.get();
-			explosion.setPosition(X, Y);
-			this.add(explosion);
 		}
 
-		_sndExplosions.play();
+		_sndExplosions.play(true);
+
+		// Damage player.
+		var dist = FlxMath.distanceBetween(_player, sprite);
+		if(dist < G.BOMB_EXPLOSION_SIZE)
+		{
+			var ratio = 1 - (dist / G.BOMB_EXPLOSION_SIZE);
+			_player.hurt(G.BOMB_DMG * ratio);
+		}
 	}
 
 	private function getEmitter():FlxEmitterExt
@@ -82,5 +95,23 @@ class Explosions extends FlxGroup
 		this.add(emitter);
 
 		return emitter;
+	}
+
+	private function getPopper():FlxEmitter
+	{
+		var popper = _poppers.get();
+		if(popper.members.length == 0)
+		{
+			popper.makeParticles(AssetPaths.Circle__png, 1);
+		}
+		popper.startAlpha.set(0.5, 0.5);
+		popper.endAlpha.set(0, 0);
+		popper.startScale.set(2, 2);
+		popper.endScale.set(2, 2);
+		popper.setXSpeed(0, 0);
+		popper.setYSpeed(0, 0);
+		this.add(popper);
+
+		return popper;
 	}
 }
