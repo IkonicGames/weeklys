@@ -8,12 +8,16 @@ import flixel.util.FlxMath;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxColor;
 import flixel.addons.effects.FlxTrail;
+import flixel.system.FlxSound;
 
 class Player extends FlxSprite
 {
 	public var score:Int;
 
 	var _tail:FlxTrail;
+	
+	var _sndLand:FlxSound;
+	var _sndJump:FlxSound;
 
 	var _moveDir:FlxVector;
 	var _inputDir:Float;
@@ -41,6 +45,9 @@ class Player extends FlxSprite
 
 		_tail = new FlxTrail(this, null, 15, 3, 1, 0);
 		FlxG.state.add(_tail);
+
+		_sndJump = FlxG.sound.load(AssetPaths.Land__mp3);
+		_sndLand = FlxG.sound.load(AssetPaths.Jump__mp3);
 	}
 
 	override public function update():Void

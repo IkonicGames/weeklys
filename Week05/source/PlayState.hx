@@ -9,6 +9,7 @@ import flixel.ui.FlxButton;
 import flixel.util.FlxMath;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
+import flixel.system.FlxSound;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -27,6 +28,9 @@ class PlayState extends FlxState
 	var _gameHud:GameHUD;
 	var _scoreMult:Int;
 	var _scoreMultPool:Float;
+
+	var _sndStart:FlxSound;
+	var _sndEat:FlxSound;
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -72,9 +76,13 @@ class PlayState extends FlxState
 		_bombSpawner = new BombSpawner();
 		this.add(_bombSpawner);
 
-
 		_gameHud = new GameHUD();
 		this.add(_gameHud);
+
+		_sndStart = FlxG.sound.load(AssetPaths.Start__mp3);
+		_sndStart.play();
+
+		_sndEat = FlxG.sound.load(AssetPaths.Eat__mp3);
 	}
 	
 	/**
@@ -96,7 +104,9 @@ class PlayState extends FlxState
 		FlxG.overlap(_player, _ground, onOverlapGround);
 		FlxG.collide(_player, _bounds);
 		FlxG.overlap(_player, _mgrEdible, onOverlapEdible);
+		FlxG.collide(_bombSpawner, _bounds);
 		FlxG.collide(_bombSpawner, _ground, onBombHitGround);
+		FlxG.collide(_bombSpawner, _player, onBombHitPlayer);
 
 		if(!_player.inGround)
 		{
@@ -131,11 +141,20 @@ class PlayState extends FlxState
 		_player.score += G.EDBL_POINTS * _scoreMult;
 		_player.addHealth(G.EDBL_HEALTH_BONUS * _scoreMult);
 		_scoreMult++;
+
+		_sndEat.play();
 	}
 	
 	public function onBombHitGround(bomb:FlxObject, ground:FlxObject):Void
 	{
 		bomb.kill();
-		_mgrExplosions.explodeAt(bomb.x, bomb.y);
+		_mgrExplosions.explodeAt(bomb.x, bomb.y, ExplType.Bomb);
+	}
+
+	private function onBombHitPlayer(bomb:FlxObject, player:FlxObject):Void
+	{
+		bomb.kill();
+		_mgrExplosions.explodeAt(bomb.x, bomb.y, ExplType.Bomb);
+		_player.hurt(G.BOMB_DMG);
 	}
 }

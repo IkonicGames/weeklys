@@ -16,7 +16,7 @@ class G
 	public static inline var EDBL_HEIGHT_MIN:Float = 0.4;
 	public static inline var EDBL_HEIGHT_MAX:Float = 0.2;
 	public static inline var EDBL_POINTS:Int= 5;
-	public static inline var EDBL_HEALTH_BONUS:Float = 50;
+	public static inline var EDBL_HEALTH_BONUS:Float = 100;
 
 	public static inline var EDBL_MGR_COUNT_MIN:Int = 1;
 	public static inline var EDBL_MGR_COUNT_MAX:Int = 10;
@@ -35,11 +35,13 @@ class G
 	public static inline var PLN_BOMB_FREQ_MAX:Float = 250;
 
 	public static inline var BOMB_GRAVITY:Float = 100;
-	public static inline var BOMB_XVEL_PCT:Float = 0.6;
+	public static inline var BOMB_XVEL_PCT:Float = 0.3;
+	public static inline var BOMB_DMG:Float = 100;
 
 	public static inline var SCORE_AIR_TIME:Float = 0.01;
 
 	public static inline var BOMB_EXPLOSION_LIFE:Float = 1;
 	public static inline var BOMB_EXPLOSION_QTY:Int = 25;
+	public static inline var BOMB_EXPLOSION_SIZE:Int = 50;
 
 }
