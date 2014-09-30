@@ -10,6 +10,7 @@ import flixel.util.FlxMath;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
+import flixel.text.FlxText;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -31,6 +32,8 @@ class PlayState extends FlxState
 
 	var _sndStart:FlxSound;
 	var _sndEat:FlxSound;
+	var _sndJump:FlxSound;
+	var _sndLand:FlxSound;
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -83,6 +86,8 @@ class PlayState extends FlxState
 		_sndStart.play();
 
 		_sndEat = FlxG.sound.load(AssetPaths.Eat__mp3);
+		_sndJump = FlxG.sound.load(AssetPaths.Jump__mp3);
+		_sndLand = FlxG.sound.load(AssetPaths.Land__mp3);
 	}
 	
 	/**
@@ -101,7 +106,14 @@ class PlayState extends FlxState
 	{
 		super.update();
 
-		FlxG.overlap(_player, _ground, onOverlapGround);
+		if(_player.inGround != FlxG.overlap(_player, _ground, onOverlapGround))
+		{
+			if(_player.inGround)
+				_sndJump.play();
+			else
+				_sndLand.play();
+			_player.inGround = !_player.inGround;
+		}
 		FlxG.collide(_player, _bounds);
 		FlxG.overlap(_player, _mgrEdible, onOverlapEdible);
 		FlxG.collide(_bombSpawner, _bounds);
@@ -131,7 +143,6 @@ class PlayState extends FlxState
 
 	private function onOverlapGround(player:FlxObject, ground:FlxObject):Void
 	{
-		_player.setInGround();
 		_scoreMult = 1;
 	}
 

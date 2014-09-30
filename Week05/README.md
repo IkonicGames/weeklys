@@ -17,8 +17,6 @@ When the player eats their growin tail.
 
 
 ### TODO
-Bomb Impact (Ground and Player);
-Sound
-Graphics
-Particles
-Directions?
+Sound (player jump/land)
+Graphics (Plane, colors)
+How to Play.

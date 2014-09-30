@@ -13,6 +13,7 @@ import flixel.system.FlxSound;
 class Player extends FlxSprite
 {
 	public var score:Int;
+	public var inGround:Bool;
 
 	var _tail:FlxTrail;
 	
@@ -21,12 +22,6 @@ class Player extends FlxSprite
 
 	var _moveDir:FlxVector;
 	var _inputDir:Float;
-	var _inGround:Bool;
-	public var inGround(get_inGround, null):Bool;
-	private function get_inGround():Bool
-	{
-		return _inGround;
-	}
 
 	public function new()
 	{
@@ -34,7 +29,7 @@ class Player extends FlxSprite
 
 		this.health = G.PLR_HEALTH_START;
 
-		_inGround = true;
+		inGround = true;
 		_moveDir = new FlxVector();
 
 		this.velocity.y = 1;
@@ -64,7 +59,7 @@ class Player extends FlxSprite
 
 	private function updateMovement():Void
 	{
-		if(_inGround)
+		if(inGround)
 		{
 			_moveDir.set(this.velocity.x, this.velocity.y);
 			_moveDir.rotateByDegrees(_inputDir * G.PLR_GRND_ROT_SPEED * FlxG.elapsed);
@@ -81,10 +76,8 @@ class Player extends FlxSprite
 		{
 			this.acceleration.set(0, G.PLR_AIR_GRAVITY);
 		}
-		_inGround = false;
 
 		this.angle = FlxAngle.asDegrees(Math.atan2(-this.velocity.x, this.velocity.y));
-
 	}
 
 	private function updateInput():Void
@@ -94,11 +87,6 @@ class Player extends FlxSprite
 			_inputDir -= 1;
 		if(FlxG.keys.pressed.D || FlxG.keys.pressed.RIGHT)
 			_inputDir += 1;
-	}
-
-	public function setInGround():Void
-	{
-		_inGround = true;
 	}
 
 	public function addHealth(add:Float):Void
