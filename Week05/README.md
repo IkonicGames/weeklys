@@ -14,9 +14,3 @@ Swallow as many ground walkers as you can.
 
 ## Game Over
 When the player eats their growin tail.
-
-
-### TODO
-Sound (player jump/land)
-Graphics (Plane, colors)
-How to Play.

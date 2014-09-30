@@ -41,6 +41,8 @@ class PlayState extends FlxState
 	override public function create():Void
 	{
 		super.create();
+		
+		FlxG.camera.bgColor = FlxColor.GOLDENROD;
 
 		_scoreMult = 1;
 		_scoreMultPool = 0;
@@ -88,6 +90,8 @@ class PlayState extends FlxState
 		_sndEat = FlxG.sound.load(AssetPaths.Eat__mp3);
 		_sndJump = FlxG.sound.load(AssetPaths.Jump__mp3);
 		_sndLand = FlxG.sound.load(AssetPaths.Land__mp3);
+
+		this.add(new Directions());
 	}
 	
 	/**

@@ -14,8 +14,9 @@ class Plane extends FlxSprite
 	{
 		super();
 
-		this.makeGraphic(32, 12);
-
+		this.loadGraphic(AssetPaths.Plane__png, true, 32, 12);
+		this.animation.add("fly", [0,1,2,3,4,5]);
+		this.animation.play("fly");
 
 		resetBombDrop();
 	}
@@ -48,6 +49,8 @@ class Plane extends FlxSprite
 		this.velocity.x = FlxRandom.floatRanged(G.PLN_SPD_MIN, G.PLN_SPD_MAX);
 		if(x > FlxG.width)
 			this.velocity.x = -this.velocity.x;
+
+		this.flipX = this.velocity.x < 0;
 	}
 
 	function resetBombDrop():Void
