@@ -1,4 +1,4 @@
 weeklys
 =======
 
-Weekly Games to learn HaxFlixel.
+Weekly Games to learn HaxeFlixel.
