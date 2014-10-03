@@ -81,10 +81,6 @@ class PlayState extends FlxState
 #if mobile
 		_sndGameOver = FlxG.sound.load(AssetPaths.PlayerDied__wav);
 #end
-
-#if flash
-		FlxG.stage.dispatchEvent(new Event(Event.DEACTIVATE));
-#end
 	}
 	
 	/**

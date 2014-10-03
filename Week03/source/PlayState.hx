@@ -90,10 +90,6 @@ class PlayState extends FlxState
 		_sndHurt = G.loadSound(AssetPaths.hurt__mp3);
 		_sndStart = G.loadSound(AssetPaths.start__mp3);
 		_sndStart.play();
-
-#if flash
-		// FlxG.stage.dispatchEvent(new Event(Event.DEACTIVATE));
-#end
 	}
 	
 	/**

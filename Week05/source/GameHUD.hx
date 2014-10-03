@@ -42,7 +42,6 @@ class GameHUD extends FlxGroup
 
 	public function setHealthPct(pct:Float):Void
 	{
-		
 		_healthBar.scale.x = FlxMath.bound(pct, 0, 1);
 	}
 }
