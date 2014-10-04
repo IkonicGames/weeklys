@@ -5,6 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxBasic;
 import flixel.FlxObject;
+import flixel.FlxSubState;
 import flixel.tile.FlxTilemap;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -21,6 +22,9 @@ class PlayState extends FlxState
 	var _grpCollectibles:FlxGroup;
 	var _grpText:FlxGroup;
 	var _player:Player;
+	var _levelTimer:LevelTimer;
+
+	var _gameOverState:FlxSubState;
 
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -48,6 +52,9 @@ class PlayState extends FlxState
 
 		_grpText = map.grpText;
 		this.add(_grpText);
+
+		_levelTimer = new LevelTimer(10, 10, 0, "", 16);
+		this.add(_levelTimer);
 	}
 	
 	/**
@@ -75,11 +82,16 @@ class PlayState extends FlxState
 		collectible.kill();
 		if(_grpCollectibles.countLiving() == 0)
 		{
-			G.levelCompleted();
+			G.levelCompleted(_levelTimer.elapsed);
 			if(G.gameOver)
-				FlxG.switchState(new GameOverState());
+			{
+				var gameOver = new GameOverSubState();
+				this.openSubState(gameOver);
+			}
 			else
+			{
 				FlxG.switchState(new PlayState());
+			}
 		}
 	}
 }
