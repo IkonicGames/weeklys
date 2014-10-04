@@ -29,6 +29,8 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		FlxG.camera.bgColor = 0x090404;
+
 		var map = new TiledLevel(AssetPaths.testLevel__tmx);
 
 		_tilemaps = new FlxTypedGroup<FlxTilemap>();
