@@ -2,6 +2,8 @@ package ;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 
 class Collectible extends FlxSprite
 {
@@ -13,5 +15,9 @@ class Collectible extends FlxSprite
 
 		this.x -= this.width / 2;
 		this.y -= this.height / 2;
+
+		this.angularVelocity = 30;
+
+		FlxTween.linearMotion(this, x, y, x, y - height / 2, 1, true, {type:FlxTween.PINGPONG, ease:FlxEase.sineInOut});
 	}
 }

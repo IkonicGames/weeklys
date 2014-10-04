@@ -43,6 +43,7 @@ class PlayState extends FlxState
 
 		_player = map.player;
 		_player.setGrappleGroup(_tilemaps);
+		this.add(_player.grapplingHook);
 		this.add(_player);
 
 		_grpText = map.grpText;

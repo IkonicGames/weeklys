@@ -21,6 +21,8 @@ enum PlayerState {
 
 class Player extends FlxSprite
 {
+	public var grapplingHook(default, null):FlxSprite;
+
 	var _currState:PlayerState;
 
 	var _vel:FlxVector;
@@ -45,6 +47,8 @@ class Player extends FlxSprite
 		_vel = new FlxVector();
 		this.acceleration.y = G.GRAVITY;
 
+		grapplingHook = new FlxSprite(x, y, AssetPaths.GrapplingHook__png);
+		grapplingHook.visible = false;
 	}
 
 	override public function update():Void
@@ -134,6 +138,24 @@ class Player extends FlxSprite
 		super.update();
 
 		FlxSpriteUtil.bound(this, 0, FlxG.width, 0, FlxG.height);
+		updateGrapplingHook();
+	}
+
+	private function updateGrapplingHook():Void
+	{
+		if(_currState != PlayerState.Grappling)
+		{
+			grapplingHook.visible = false;
+			return;
+		}
+
+		grapplingHook.visible = true;
+		grapplingHook.x = _grapplePoint.x + (x - _grapplePoint.x) / 2;
+		grapplingHook.y = _grapplePoint.y + (y - _grapplePoint.y) / 2;
+		grapplingHook.angle = FlxAngle.angleBetweenPoint(this, _grapplePoint, true);
+
+		var dist = FlxMath.distanceToPoint(this, _grapplePoint);
+		grapplingHook.scale.x = dist / 16;
 	}
 
 	public function setGrappleGroup(grp:FlxTypedGroup<FlxTilemap>):Void
