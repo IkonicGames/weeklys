@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxBasic;
+import flixel.FlxObject;
 import flixel.tile.FlxTilemap;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -61,7 +62,13 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		FlxG.collide(_player, _tilemaps);
+		FlxG.overlap(_player, _grpCollectibles, onOverlapCollectible);
 		super.update();
 
 	}	
+
+	private function onOverlapCollectible(player:FlxObject, collectible:FlxObject):Void
+	{
+		collectible.kill();
+	}
 }

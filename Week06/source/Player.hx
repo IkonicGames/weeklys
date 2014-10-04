@@ -34,7 +34,7 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 
-		this.makeGraphic(16, 32);
+		this.makeGraphic(16, 16);
 
 		_currState = PlayerState.Jumping;
 
