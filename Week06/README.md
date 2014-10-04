@@ -12,7 +12,6 @@ Race against the clock to finish the levels as fast as possible.
 
 ## TODO
 Level Design
-Level Transition
 Level Timers
 Tutorial Levels
 High Score

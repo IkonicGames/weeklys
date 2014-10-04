@@ -31,7 +31,7 @@ class PlayState extends FlxState
 
 		FlxG.camera.bgColor = 0x090404;
 
-		var map = new TiledLevel(AssetPaths.testLevel__tmx);
+		var map = new TiledLevel(G.currentLevel);
 
 		_tilemaps = new FlxTypedGroup<FlxTilemap>();
 		_tilemaps.add(map.baseTilemap);
@@ -73,5 +73,13 @@ class PlayState extends FlxState
 	private function onOverlapCollectible(player:FlxObject, collectible:FlxObject):Void
 	{
 		collectible.kill();
+		if(_grpCollectibles.countLiving() == 0)
+		{
+			G.levelCompleted();
+			if(G.gameOver)
+				FlxG.switchState(new GameOverState());
+			else
+				FlxG.switchState(new PlayState());
+		}
 	}
 }
