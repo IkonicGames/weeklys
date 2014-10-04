@@ -1,10 +1,14 @@
-package;
+package ;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.FlxBasic;
+import flixel.tile.FlxTilemap;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
+import flixel.group.FlxGroup;
+import flixel.group.FlxTypedGroup;
 import flixel.util.FlxMath;
 
 /**
@@ -12,9 +16,11 @@ import flixel.util.FlxMath;
  */
 class PlayState extends FlxState
 {
+	var _tilemaps:FlxTypedGroup<FlxTilemap>;
+	var _grpCollectibles:FlxGroup;
+	var _grpText:FlxGroup;
 	var _player:Player;
-	var _floor:FlxSprite;
-	var _grapple:FlxSprite;
+
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -22,19 +28,22 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		_floor = new FlxSprite(0, Std.int(FlxG.height * 0.8));
-		_floor.makeGraphic(FlxG.width, Std.int(FlxG.height * 0.2));
-		_floor.immovable = true;
-		this.add(_floor);
+		var map = new TiledLevel(AssetPaths.testLevel__tmx);
 
-		_grapple = new FlxSprite(FlxG.width / 2, FlxG.height / 4);
-		_grapple.makeGraphic(32, 32);
-		_grapple.immovable;
-		this.add(_grapple);
+		_tilemaps = new FlxTypedGroup<FlxTilemap>();
+		_tilemaps.add(map.baseTilemap);
+		_tilemaps.add(map.onewayTilemap);
+		this.add(_tilemaps);
 
-		_player = new Player(FlxG.width / 4, FlxG.height / 20);
-		_player.addGrappleObject(_grapple);
+		_grpCollectibles = map.grpCollectibles;
+		this.add(_grpCollectibles);
+
+		_player = map.player;
+		_player.setGrappleGroup(_tilemaps);
 		this.add(_player);
+
+		_grpText = map.grpText;
+		this.add(_grpText);
 	}
 	
 	/**
@@ -51,7 +60,7 @@ class PlayState extends FlxState
 	 */
 	override public function update():Void
 	{
-		FlxG.collide(_player, _floor);
+		FlxG.collide(_player, _tilemaps);
 		super.update();
 
 	}	

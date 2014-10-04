@@ -3,11 +3,15 @@ package ;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxObject;
+import flixel.group.FlxTypedGroup;
+import flixel.tile.FlxTilemap;
 import flixel.util.FlxVector;
 import flixel.util.FlxVelocity;
 import flixel.util.FlxPoint;
 import flixel.util.FlxMath;
 import flixel.util.FlxAngle;
+import flixel.util.FlxSpriteUtil;
+import flixel.addons.display.shapes.FlxShapeLine;
 
 enum PlayerState {
 	Stationary;
@@ -20,7 +24,9 @@ class Player extends FlxSprite
 	var _currState:PlayerState;
 
 	var _vel:FlxVector;
-	var _grappleObjects:List<FlxObject>;
+
+	var _grpGrapple:FlxTypedGroup<FlxTilemap>;
+	var _grappleLine:FlxShapeLine;
 	var _grapplePoint:FlxPoint;
 	var _grappleVec:FlxVector;
 
@@ -28,11 +34,11 @@ class Player extends FlxSprite
 	{
 		super(X, Y);
 
-		this.makeGraphic(8, 8);
+		this.makeGraphic(16, 32);
 
 		_currState = PlayerState.Jumping;
 
-		_grappleObjects = new List<FlxObject>();
+		_grpGrapple = new FlxTypedGroup<FlxTilemap>();
 		_grapplePoint = FlxPoint.get();
 		_grappleVec = FlxVector.get();
 
@@ -66,14 +72,13 @@ class Player extends FlxSprite
 				}
 				else if(FlxG.mouse.justPressed)
 				{
-					for(obj in _grappleObjects)
-					{
-						if(obj.overlapsPoint(FlxG.mouse))
+					_grpGrapple.forEachOfType(FlxTilemap, function(tilemap:FlxTilemap):Void {
+						if(tilemap.overlapsPoint(FlxG.mouse))
 						{
 							_currState = PlayerState.Grappling;
-							_grapplePoint = FlxG.mouse;
+							_grapplePoint.set(FlxG.mouse.x, FlxG.mouse.y);
 						}
-					}
+					});
 				}
 
 			case PlayerState.Grappling:
@@ -127,10 +132,12 @@ class Player extends FlxSprite
 		}
 
 		super.update();
+
+		FlxSpriteUtil.bound(this, 0, FlxG.width, 0, FlxG.height);
 	}
 
-	public function addGrappleObject(obj:FlxObject):Void
+	public function setGrappleGroup(grp:FlxTypedGroup<FlxTilemap>):Void
 	{
-		_grappleObjects.add(obj);
+		_grpGrapple = grp;
 	}
 }
