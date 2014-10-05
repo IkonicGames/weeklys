@@ -6,13 +6,13 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
 
-class GameOverSubState extends FlxSubState
+class LevelTranstionSubState extends FlxSubState
 {
 	var _sprBackground:FlxSprite;
 
 	var _txtScore:FlxText;
 	var _txtHighScore:FlxText;
-	var _txtNextLevel:FlxText;
+	var _txtPlayAgain:FlxText;
 
 	var _highScore:Bool;
 
@@ -40,9 +40,9 @@ class GameOverSubState extends FlxSubState
 		_txtHighScore.x -= _txtHighScore.width / 2;
 		this.add(_txtHighScore);
 		
-		_txtNextLevel = new FlxText(FlxG.width / 2, FlxG.height * 0.8, 0, "Click to Play the Next Level.", 16);
-		_txtNextLevel.x -= _txtNextLevel.width / 2;
-		this.add(_txtNextLevel);
+		_txtPlayAgain = new FlxText(FlxG.width / 2, FlxG.height * 0.8, 0, "Click to Play Again.", 16);
+		_txtPlayAgain.x -= _txtPlayAgain.width / 2;
+		this.add(_txtPlayAgain);
 
 		super.create();
 	}
@@ -59,7 +59,6 @@ class GameOverSubState extends FlxSubState
 
 	private function onCameraFadeComplete():Void
 	{
-		G.restartLevels();
 		FlxG.switchState(new PlayState());
 	}
 }

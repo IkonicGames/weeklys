@@ -1,4 +1,5 @@
 import flixel.util.FlxSave;
+import flixel.util.FlxMath;
 
 class G
 {
@@ -26,8 +27,7 @@ class G
 		{
 			_saveGame = new FlxSave();
 			_saveGame.bind("CogLove");
-			trace(_saveGame.data);
-			trace(_saveGame.data.highScore);
+			_saveGame.erase();
 			if(_saveGame.data.highScore == null)
 				_saveGame.data.highScore = new Array<Int>();
 		}
@@ -38,7 +38,9 @@ class G
 	public static function checkHighScore(level:Int, score:Float):Bool
 	{
 		checkSaveGame();
-		return _saveGame.data.highScore[level] < score;
+		if(_saveGame.data.highScore[level] == null)
+			_saveGame.data.highScore[level] = FlxMath.MAX_VALUE;
+		return _saveGame.data.highScore[level] > score;
 	}
 
 	public static function setHighScore(level:Int, score:Float):Void
@@ -58,7 +60,7 @@ class G
 
 	// ---- Level Info ----
 
-	private static var _levels:Array<String> = ["testLevel", "testLevel1"];
+	private static var _levels:Array<String> = ["testLevel", "testLevel", "testLevel"];
 	public static var levelNum(default, null):Int = 0;
 
 	public static var gameOver(get, null):Bool;
@@ -75,7 +77,7 @@ class G
 
 	public static function levelCompleted(score:Float):Void
 	{
-		setHighScore(levelNum, score);
+		lastScore = score;
 		levelNum++;
 	}
 

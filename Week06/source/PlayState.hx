@@ -12,6 +12,7 @@ import flixel.ui.FlxButton;
 import flixel.group.FlxGroup;
 import flixel.group.FlxTypedGroup;
 import flixel.util.FlxMath;
+import flixel.text.FlxText;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -22,7 +23,7 @@ class PlayState extends FlxState
 	var _grpCollectibles:FlxGroup;
 	var _grpText:FlxGroup;
 	var _player:Player;
-	var _levelTimer:LevelTimer;
+	var _gameHUD:GameHUD;
 
 	var _gameOverState:FlxSubState;
 
@@ -33,7 +34,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		FlxG.camera.bgColor = 0x090404;
+		FlxG.camera.fade(0, 0.3, true);
 
 		var map = new TiledLevel(G.currentLevel);
 
@@ -53,8 +54,8 @@ class PlayState extends FlxState
 		_grpText = map.grpText;
 		this.add(_grpText);
 
-		_levelTimer = new LevelTimer(10, 10, 0, "", 16);
-		this.add(_levelTimer);
+		_gameHUD = new GameHUD();
+		this.add(_gameHUD);
 	}
 	
 	/**
@@ -82,15 +83,15 @@ class PlayState extends FlxState
 		collectible.kill();
 		if(_grpCollectibles.countLiving() == 0)
 		{
-			G.levelCompleted(_levelTimer.elapsed);
+			G.levelCompleted(_gameHUD.levelTimer.elapsed);
 			if(G.gameOver)
 			{
-				var gameOver = new GameOverSubState();
+				var gameOver = new LevelTransitionSubState(_gameHUD.levelTimer.elapsed, true);
 				this.openSubState(gameOver);
 			}
 			else
 			{
-				FlxG.switchState(new PlayState());
+				this.openSubState(new LevelTransitionSubState(_gameHUD.levelTimer.elapsed));
 			}
 		}
 	}

@@ -6,7 +6,7 @@ import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.text.FlxText;
 
-class GameOverSubState extends FlxSubState
+class LevelTransitionSubState extends FlxSubState
 {
 	var _sprBackground:FlxSprite;
 
@@ -14,13 +14,17 @@ class GameOverSubState extends FlxSubState
 	var _txtHighScore:FlxText;
 	var _txtNextLevel:FlxText;
 
+	var _score:Float;
 	var _highScore:Bool;
+	var _gameOver:Bool;
 
-	public function new(highScore:Bool)
+	public function new(score:Float, gameOver:Bool = false)
 	{
 		super();
 
-		_highScore = highScore;
+		_score = score;
+		_highScore = G.checkHighScore(G.levelNum, _score);
+		_gameOver = gameOver;
 	}
 
 	override public function create():Void
@@ -36,11 +40,12 @@ class GameOverSubState extends FlxSubState
 		this.add(_txtScore);
 
 		var highScore = _highScore ? "New High Score!!!" : "High Score: " + G.getTimeString(G.getHighScore(G.levelNum));
-		_txtHighScore = new FlxText(FlxG.width / 2, FlxG.height / 2, 0, highScore);
+		_txtHighScore = new FlxText(FlxG.width / 2, FlxG.height / 2, 0, highScore, 16);
 		_txtHighScore.x -= _txtHighScore.width / 2;
 		this.add(_txtHighScore);
 		
-		_txtNextLevel = new FlxText(FlxG.width / 2, FlxG.height * 0.8, 0, "Click to Play the Next Level.", 16);
+		var nextLevel = _gameOver ? "Click to Play Again..." : "Click to Play the Next Level...";
+		_txtNextLevel = new FlxText(FlxG.width / 2, FlxG.height * 0.8, 0, nextLevel, 16);
 		_txtNextLevel.x -= _txtNextLevel.width / 2;
 		this.add(_txtNextLevel);
 
@@ -59,7 +64,8 @@ class GameOverSubState extends FlxSubState
 
 	private function onCameraFadeComplete():Void
 	{
-		G.restartLevels();
+		if(_gameOver)
+			G.restartLevels();
 		FlxG.switchState(new PlayState());
 	}
 }

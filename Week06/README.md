@@ -12,6 +12,8 @@ Race against the clock to finish the levels as fast as possible.
 
 ## TODO
 Level Design
-Level Timers
+Camera?
 Tutorial Levels
-High Score
+Sound
+Complete Graphics
+Complete GameOver
