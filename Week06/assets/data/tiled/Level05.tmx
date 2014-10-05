@@ -8,33 +8,31 @@
  </tileset>
  <layer name="BaseTiles" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMApGwSigLWAeYRgAXygAtQ==
+   eJxjYCAMmCnElAJ62EGO3bQEo/aOTHvpYQ4p6umd10ftHbWXVnaTYyel9lNqJ6n2UsO+UUw9DADmoQNS
   </data>
  </layer>
  <layer name="OneWayTiles" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjILBCVjQ8CigLhgNX9qB0bAdBQCqgAAx
+   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
   </data>
  </layer>
  <objectgroup name="Player">
-  <object x="56" y="268"/>
+  <object x="68" y="116"/>
  </objectgroup>
  <objectgroup name="Collectibles">
-  <object gid="5" x="456" y="136"/>
-  <object gid="5" x="424" y="136"/>
+  <object gid="5" x="460" y="120"/>
+  <object gid="5" x="428" y="120"/>
+  <object gid="5" x="396" y="120"/>
+  <object gid="5" x="309" y="180"/>
+  <object gid="5" x="277" y="204"/>
+  <object gid="5" x="237" y="212"/>
+  <object gid="5" x="193" y="205"/>
+  <object gid="5" x="156" y="183"/>
  </objectgroup>
  <objectgroup name="Text">
-  <object name="InstructJump" x="108" y="196" width="128" height="16">
-   <properties>
-    <property name="Size" value="16"/>
-    <property name="Text" value="Click to jump."/>
-   </properties>
-  </object>
-  <object x="376" y="76" width="96" height="20">
-   <properties>
-    <property name="Size" value="16"/>
-    <property name="Text" value="Collecte these..."/>
-   </properties>
-  </object>
+  <properties>
+   <property name="Size" value="16"/>
+   <property name="Text" value="While in the air,"/>
+  </properties>
  </objectgroup>
 </map>

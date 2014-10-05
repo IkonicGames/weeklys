@@ -24,17 +24,9 @@
   <object gid="5" x="424" y="136"/>
  </objectgroup>
  <objectgroup name="Text">
-  <object name="InstructJump" x="108" y="196" width="128" height="16">
-   <properties>
-    <property name="Size" value="16"/>
-    <property name="Text" value="Click to jump."/>
-   </properties>
-  </object>
-  <object x="376" y="76" width="96" height="20">
-   <properties>
-    <property name="Size" value="16"/>
-    <property name="Text" value="Collecte these..."/>
-   </properties>
-  </object>
+  <properties>
+   <property name="Size" value="16"/>
+   <property name="Text" value="You can jump through these"/>
+  </properties>
  </objectgroup>
 </map>
