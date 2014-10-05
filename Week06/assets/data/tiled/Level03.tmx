@@ -8,7 +8,7 @@
  </tileset>
  <layer name="BaseTiles" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjZmBgYB7Fo3gUU4RHwSgYBZQDWuaxgcrbA1XGDHV7hwMGAM5oA+s=
+   eJxjZmBgYB7Fo3gUU4RHwSigBRioNDgc7R2ovD5Q5c1wsneoYgAGPgRX
   </data>
  </layer>
  <layer name="OneWayTiles" width="30" height="20">
@@ -17,7 +17,7 @@
   </data>
  </layer>
  <objectgroup name="Player">
-  <object x="44" y="212"/>
+  <object x="144" y="180"/>
  </objectgroup>
  <objectgroup name="Collectibles">
   <object gid="5" x="436" y="216"/>

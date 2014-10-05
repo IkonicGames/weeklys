@@ -13,7 +13,4 @@ Race against the clock to finish the levels as fast as possible.
 ## TODO
 Level Design
 Camera?
-Tutorial Levels
 Sound
-Complete Graphics
-Complete GameOver

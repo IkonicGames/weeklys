@@ -104,7 +104,7 @@ class Player extends FlxSprite
 
 		super.update();
 
-		FlxSpriteUtil.bound(this, 0, FlxG.width, 0, FlxG.height);
+		FlxSpriteUtil.bound(this, FlxG.worldBounds.x, FlxG.worldBounds.width, FlxG.worldBounds.y, FlxG.worldBounds.height);
 		updateGrapplingHook();
 	}
 

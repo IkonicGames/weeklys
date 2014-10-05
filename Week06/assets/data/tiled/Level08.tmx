@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="FloorTiles" tilewidth="16" tileheight="16">
+  <image source="../../images/FloorTiles.png" width="64" height="16"/>
+ </tileset>
+ <tileset firstgid="5" name="Collectible" tilewidth="16" tileheight="16">
+  <image source="../../images/Collectible.png" width="16" height="16"/>
+ </tileset>
+ <layer name="BaseTiles" width="60" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztz8EJADAIBEEh/fecBnwY4pGc7MK9dSKIiIjoVSvZxDLnVHfF6mw+8bmbb614/63D6mLutKrNHXcU3puf1DfV3sof7reYzzaSAgPx
+  </data>
+ </layer>
+ <layer name="OneWayTiles" width="60" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
+ <layer name="GrappleTiles" width="60" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzt1EEKACAIRFHp/odu2yoc0RL8D9o6DlFmfqvwvMg4c352VjKUHbJEu3h3Unav7HnLiN6bZ766U4WMvt7ZHUTfTrceiup/optJXQEAAICJNhUCAVk=
+  </data>
+ </layer>
+ <objectgroup name="Player">
+  <object x="100" y="116"/>
+ </objectgroup>
+ <objectgroup name="Collectibles">
+  <object gid="5" x="396" y="176"/>
+  <object gid="5" x="368" y="176"/>
+  <object gid="5" x="892" y="152"/>
+  <object gid="5" x="920" y="152"/>
+  <object gid="5" x="456" y="176"/>
+  <object gid="5" x="428" y="176"/>
+  <object gid="5" x="528" y="160"/>
+  <object gid="5" x="500" y="160"/>
+  <object gid="5" x="592" y="160"/>
+  <object gid="5" x="564" y="160"/>
+  <object gid="5" x="656" y="176"/>
+  <object gid="5" x="628" y="176"/>
+  <object gid="5" x="720" y="188"/>
+  <object gid="5" x="692" y="188"/>
+  <object gid="5" x="792" y="176"/>
+  <object gid="5" x="764" y="176"/>
+ </objectgroup>
+ <objectgroup name="Text">
+  <properties>
+   <property name="Size" value="16"/>
+   <property name="Text" value="While in the air,"/>
+  </properties>
+ </objectgroup>
+</map>

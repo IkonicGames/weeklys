@@ -14,6 +14,7 @@ class TiledLevel extends TiledMap
 {
 	public var baseTilemap(default, null):FlxTilemap;
 	public var onewayTilemap(default, null):FlxTilemap;
+	public var grappleTilemap(default, null):FlxTilemap;
 	public var player(default, null):Player;
 	public var grpCollectibles(default, null):FlxGroup;
 	public var grpText(default, null):FlxGroup;
@@ -40,6 +41,10 @@ class TiledLevel extends TiledMap
 
 				case "BaseTiles":
 					baseTilemap = tilemap;
+
+				case "GrappleTiles":
+					grappleTilemap = tilemap;
+
 			}
 			
 			// This happens after allowCollisions is set because tiles won't be one-way otherwise

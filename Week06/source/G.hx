@@ -60,8 +60,8 @@ class G
 
 	// ---- Level Info ----
 
-	private static var _levels:Array<String> = ["Level01", "Level02", "Level03", "Level04", "Level05", "Level06"];
-	public static var levelNum(default, null):Int = 5;
+	private static var _levels:Array<String> = ["Level01", "Level02", "Level03", "Level04", "Level05", "Level06", "Level07"];
+	public static var levelNum(default, null):Int = 6;
 
 	public static var gameOver(get, null):Bool;
 	private static function get_gameOver():Bool

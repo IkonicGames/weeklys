@@ -8,12 +8,12 @@
  </tileset>
  <layer name="BaseTiles" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYBiagBkNj9o7vOylNhhp4TfS7B0F1AUDFYfUtBc9LeIzl1x7cdmBD+PTSy07RvHgwACgcAIR
+   eJxjYKAOYEbD9AKj9o4CYsBIi6+RZu8ooC4YqDikpr3oaRGfueTai8sOfBifXmrZMYoHBwYAtXACEQ==
   </data>
  </layer>
  <layer name="OneWayTiles" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T20JT6AAAHgaCWAAAQ==
+   eJxjYBgFo2DkAhY0PApGwSgYBaNgFFADAABvAAAR
   </data>
  </layer>
  <objectgroup name="Player">

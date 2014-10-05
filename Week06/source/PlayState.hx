@@ -6,6 +6,7 @@ import flixel.FlxState;
 import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSubState;
+import flixel.FlxCamera;
 import flixel.tile.FlxTilemap;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -19,7 +20,9 @@ import flixel.text.FlxText;
  */
 class PlayState extends FlxState
 {
-	var _tilemaps:FlxTypedGroup<FlxTilemap>;
+	var _playerTilemaps:FlxTypedGroup<FlxTilemap>;
+	var _grappleTilemaps:FlxTypedGroup<FlxTilemap>;
+	var _grapplemap:FlxTilemap;
 	var _grpCollectibles:FlxGroup;
 	var _grpText:FlxGroup;
 	var _player:Player;
@@ -34,20 +37,25 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		FlxG.camera.fade(0, 0.3, true);
 
 		var map = new TiledLevel(G.currentLevel);
+		FlxG.worldBounds.set(0, 0, map.fullWidth, map.fullHeight);
 
-		_tilemaps = new FlxTypedGroup<FlxTilemap>();
-		_tilemaps.add(map.baseTilemap);
-		_tilemaps.add(map.onewayTilemap);
-		this.add(_tilemaps);
+		_playerTilemaps = new FlxTypedGroup<FlxTilemap>();
+		_playerTilemaps.add(map.baseTilemap);
+		_playerTilemaps.add(map.onewayTilemap);
 
 		_grpCollectibles = map.grpCollectibles;
 		this.add(_grpCollectibles);
 
+		_grappleTilemaps = new FlxTypedGroup<FlxTilemap>();
+		_grappleTilemaps.add(map.baseTilemap);
+		_grappleTilemaps.add(map.onewayTilemap);
+		_grappleTilemaps.add(map.grappleTilemap);
+		this.add(_grappleTilemaps);
+
 		_player = map.player;
-		_player.setGrappleGroup(_tilemaps);
+		_player.setGrappleGroup(_grappleTilemaps);
 		this.add(_player.grapplingHook);
 		this.add(_player);
 
@@ -56,6 +64,10 @@ class PlayState extends FlxState
 
 		_gameHUD = new GameHUD();
 		this.add(_gameHUD);
+
+		FlxG.camera.fade(0, 0.3, true);
+		FlxG.camera.follow(_player, FlxCamera.STYLE_PLATFORMER, null, 1);
+		FlxG.camera.setBounds(0, 0, map.fullWidth, map.fullHeight);
 	}
 	
 	/**
@@ -72,10 +84,9 @@ class PlayState extends FlxState
 	 */
 	override public function update():Void
 	{
-		FlxG.collide(_player, _tilemaps);
+		FlxG.collide(_player, _playerTilemaps);
 		FlxG.overlap(_player, _grpCollectibles, onOverlapCollectible);
 		super.update();
-
 	}	
 
 	private function onOverlapCollectible(player:FlxObject, collectible:FlxObject):Void
