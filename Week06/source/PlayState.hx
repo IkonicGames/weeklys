@@ -7,6 +7,7 @@ import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSubState;
 import flixel.FlxCamera;
+import flixel.system.FlxSound;
 import flixel.tile.FlxTilemap;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
@@ -28,6 +29,9 @@ class PlayState extends FlxState
 	var _player:Player;
 	var _gameHUD:GameHUD;
 
+	var _sndPickup:FlxSound;
+	var _sndLevelComplete:FlxSound;
+
 	var _gameOverState:FlxSubState;
 
 	/**
@@ -37,6 +41,8 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		_sndPickup = FlxG.sound.load(AssetPaths.Pickup__mp3);
+		_sndLevelComplete = FlxG.sound.load(AssetPaths.LevelComplete__mp3);
 
 		var map = new TiledLevel(G.currentLevel);
 		FlxG.worldBounds.set(0, 0, map.fullWidth, map.fullHeight);
@@ -91,9 +97,14 @@ class PlayState extends FlxState
 
 	private function onOverlapCollectible(player:FlxObject, collectible:FlxObject):Void
 	{
+		_sndPickup.play(true);
+
 		collectible.kill();
+
 		if(_grpCollectibles.countLiving() == 0)
 		{
+			_sndLevelComplete.play();
+
 			G.levelCompleted(_gameHUD.levelTimer.elapsed);
 			if(G.gameOver)
 			{

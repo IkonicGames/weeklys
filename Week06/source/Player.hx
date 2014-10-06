@@ -3,6 +3,7 @@ package ;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxObject;
+import flixel.system.FlxSound;
 import flixel.group.FlxTypedGroup;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxVector;
@@ -33,6 +34,11 @@ class Player extends FlxSprite
 	var _grappleVec:FlxVector;
 	var _currRatio:Float;
 
+	var _sndJump:FlxSound;
+	var _sndLand:FlxSound;
+	var _sndGrappleOn:FlxSound;
+	var _sndGrappleOff:FlxSound;
+
 	public function new(X:Float = 0, Y:Float = 0)
 	{
 		super(X, Y);
@@ -50,6 +56,11 @@ class Player extends FlxSprite
 
 		grapplingHook = new FlxSprite(x, y, AssetPaths.GrapplingHook__png);
 		grapplingHook.visible = false;
+
+		_sndJump = FlxG.sound.load(AssetPaths.Jump__mp3);
+		_sndLand = FlxG.sound.load(AssetPaths.Land__mp3);
+		_sndGrappleOn = FlxG.sound.load(AssetPaths.GrappleOn__mp3);
+		_sndGrappleOff = FlxG.sound.load(AssetPaths.GrappleOff__mp3);
 	}
 
 	override public function update():Void
@@ -67,6 +78,8 @@ class Player extends FlxSprite
 					this.velocity.set(_vel.x, _vel.y);
 
 					_currState = PlayerState.Jumping;
+
+					_sndJump.play();
 				}
 
 			case PlayerState.Jumping:
@@ -74,6 +87,7 @@ class Player extends FlxSprite
 				{
 					_currState = PlayerState.Stationary;
 					this.velocity.x = 0;
+					_sndLand.play();
 				}
 				else if(FlxG.mouse.justPressed)
 				{
@@ -86,6 +100,8 @@ class Player extends FlxSprite
 							{
 								_currState = PlayerState.Grappling;
 								_currRatio = (len - G.GRPL_LENGTH) / G.GRPL_LENGTH_RANGE;
+
+								_sndGrappleOn.play();
 							}
 						});
 					}
@@ -95,6 +111,7 @@ class Player extends FlxSprite
 				if(FlxG.mouse.justReleased || this.isTouching(FlxObject.FLOOR))
 				{
 					_currState = PlayerState.Jumping;
+					_sndGrappleOff.play();
 				}
 				else
 				{
@@ -137,7 +154,7 @@ class Player extends FlxSprite
 
 			   TODO: velocity should be reduced at sharp angles
 			*/
-			var speed = vel.length;
+			var speed = vel.length * G.GRPL_VEL_MULT;
 			var rl = vel.degreesBetween(unit.leftNormal());
 			var rr = vel.degreesBetween(unit.rightNormal());
 			var norm:FlxVector;

@@ -13,7 +13,12 @@
  </layer>
  <layer name="OneWayTiles" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJxjYCANsBDAtAKj9g5ve0fB4ASj6QA3GA2XUTAKRgE+AAD4KwDN
+   eJxjYBgFo2AUjALsgAUHHgWj4TIKRsEowA8A2KAALQ==
+  </data>
+ </layer>
+ <layer name="GrappleTiles" width="30" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYCANMBHAtAKj9g5ve0fBKBgFo2AUjILhBACZHgBR
   </data>
  </layer>
  <objectgroup name="Player">

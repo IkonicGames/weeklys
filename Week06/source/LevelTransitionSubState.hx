@@ -25,6 +25,9 @@ class LevelTransitionSubState extends FlxSubState
 		_score = score;
 		_highScore = G.checkHighScore(G.levelNum, _score);
 		_gameOver = gameOver;
+
+		if(_highScore)
+			G.setHighScore(G.levelNum, _score);
 	}
 
 	override public function create():Void

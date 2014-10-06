@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="FloorTiles" tilewidth="16" tileheight="16">
+  <image source="../../images/FloorTiles.png" width="64" height="16"/>
+ </tileset>
+ <tileset firstgid="5" name="Collectible" tilewidth="16" tileheight="16">
+  <image source="../../images/Collectible.png" width="16" height="16"/>
+ </tileset>
+ <layer name="BaseTiles" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztlsEKgDAMQwv7/3+WHnZRBDe7NFv6oNclD6e2mVmroZ43EBnROaPZUZ0iQXqO5iJA5jP43rusPp/BdTUsdxlBxjcqCyVXp3zL9xTfrH0qi/Ll3CNXn492RmdnOWffKYR39l2a7TPSjeW9ieoXPWjUfG2i486u9qHXDg6jnO53R8Wzo+LZUXJ1lFwdJVdHxdNReq6Oumv58jDblf1/+3e3Zd2NZ/f2VXOyW6R7dtea51xnmgmL
+  </data>
+ </layer>
+ <layer name="OneWayTiles" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztw6EJAAAIADCD/99stVgFcYNFAAAAAFuy/SaHAAAAAACXFSPNACU=
+  </data>
+ </layer>
+ <layer name="GrappleTiles" width="60" height="40" opacity="0.97">
+  <data encoding="base64" compression="zlib">
+   eJzt2NEKgCAMheERvf8zhxeBBOpcTdfZ+aDb3K/dpAiRyNF5kPW60ffD0o7Qn7E7S2cNpXN2bqTWv80/K1tvka23yNRKRPR0Nh5ErVbEPcjSecvQWEPtQrXzv3flGrvvM7zXsd5TjWax7JHn3r7pHM3y5ruI3Grp1TZ70M618ny9aeeanT9ia81ybtr3RhT5LLxkaiUiIvraBSftAqM=
+  </data>
+ </layer>
+ <objectgroup name="Player">
+  <object x="112" y="596"/>
+ </objectgroup>
+ <objectgroup name="Collectibles">
+  <object gid="5" x="496" y="516"/>
+  <object gid="5" x="532" y="528"/>
+  <object gid="5" x="568" y="532"/>
+  <object gid="5" x="612" y="524"/>
+  <object gid="5" x="636" y="508"/>
+  <object gid="5" x="212" y="568"/>
+  <object gid="5" x="256" y="568"/>
+  <object gid="5" x="284" y="560"/>
+  <object gid="5" x="316" y="548"/>
+  <object gid="5" x="164" y="256"/>
+  <object gid="5" x="204" y="248"/>
+  <object gid="5" x="236" y="228"/>
+  <object gid="5" x="248" y="192"/>
+  <object gid="5" x="256" y="152"/>
+  <object gid="5" x="240" y="124"/>
+  <object gid="5" x="200" y="104"/>
+  <object gid="5" x="148" y="100"/>
+  <object gid="5" x="116" y="120"/>
+  <object gid="5" x="88" y="156"/>
+  <object gid="5" x="96" y="212"/>
+  <object gid="5" x="128" y="244"/>
+ </objectgroup>
+ <objectgroup name="Text">
+  <properties>
+   <property name="Size" value="16"/>
+   <property name="Text" value="While in the air,"/>
+  </properties>
+ </objectgroup>
+</map>

@@ -13,27 +13,30 @@
  </layer>
  <layer name="OneWayTiles" width="30" height="40">
   <data encoding="base64" compression="zlib">
-   eJztzzEKACAMA0AH//9mFwcRESlYHe4gW0loKQAAwK9qT8bGmNv7p52R/dU/0T92XXW6yZS9B/BaA+AOAHk=
+   eJzt1LEKACAIRVEH//+b20VIh/dquAecCi0RIwAAgFuWePkOAH9z7Im6k7I5U9Sc3tvW7/6j7KMi9y2fcibc/QOAiQOifQCN
   </data>
  </layer>
  <layer name="GrappleTiles" width="30" height="40" opacity="0.59">
   <data encoding="base64" compression="zlib">
-   eJzt08EKACEIRdEW/f83twpCQlR4GvYutJiNR6aZMRhjjL3WLPD2qTCzXGnS7eXe7O6u9FnPMu739t+iv2uLGfW9s717aM8/nar3r5XleGzrXtG0OSjznG/ZCeVHXYTN8C2G/AO9
+   eJzt00EOgCAMRNHGeP8zuyXEYDudYVzwE7Z9lUhExGU4Yy535w6rXK7KzuRy2XYlh+l0GTbacf/vdnOYiMuKad7TYdlV98tm3a/ie6tuNsZ/VDVnGw11uzlMRzvu9+2NVt+PwkT96uyuy/Sytspk7Ocw2TbSapbKfJud2alrjvMzO6l81FXYJ30PjQgF/w==
   </data>
  </layer>
  <objectgroup name="Player">
   <object x="252" y="580"/>
  </objectgroup>
  <objectgroup name="Collectibles">
-  <object gid="5" x="96" y="440"/>
-  <object gid="5" x="120" y="440"/>
-  <object gid="5" x="144" y="440"/>
-  <object gid="5" x="168" y="440"/>
+  <object gid="5" x="92" y="476"/>
+  <object gid="5" x="116" y="476"/>
+  <object gid="5" x="140" y="476"/>
+  <object gid="5" x="164" y="476"/>
   <object gid="5" x="200" y="536"/>
   <object gid="5" x="224" y="540"/>
   <object gid="5" x="252" y="540"/>
   <object gid="5" x="280" y="536"/>
   <object gid="5" x="308" y="528"/>
+  <object gid="5" x="10" y="252"/>
+  <object gid="5" x="28" y="252"/>
+  <object gid="5" x="48" y="252"/>
  </objectgroup>
  <objectgroup name="Text">
   <properties>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="FloorTiles" tilewidth="16" tileheight="16">
+  <image source="../../images/FloorTiles.png" width="64" height="16"/>
+ </tileset>
+ <tileset firstgid="5" name="Collectible" tilewidth="16" tileheight="16">
+  <image source="../../images/Collectible.png" width="16" height="16"/>
+ </tileset>
+ <layer name="BaseTiles" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAB4DCWAAAE=
+  </data>
+ </layer>
+ <layer name="OneWayTiles" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAB4DCWAAAE=
+  </data>
+ </layer>
+ <layer name="GrappleTiles" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20Hb6AAAAAAAAAAAAB4DCWAAAE=
+  </data>
+ </layer>
+ <objectgroup name="Player"/>
+ <objectgroup name="Collectibles"/>
+ <objectgroup name="Text">
+  <properties>
+   <property name="Size" value="16"/>
+   <property name="Text" value="While in the air,"/>
+  </properties>
+ </objectgroup>
+</map>

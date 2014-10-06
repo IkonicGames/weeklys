@@ -7,8 +7,9 @@ class G
 
 	public static inline var PLR_JUMP:Float = 200;
 
+	public static inline var GRPL_VEL_MULT:Float = 1.001;
 	public static inline var GRPL_LENGTH:Float = 100;
-	public static inline var GRPL_LENGTH_RANGE:Float = 50;
+	public static inline var GRPL_LENGTH_RANGE:Float = 100;
 	public static inline var GRPL_LERP:Float = 0.25;
 
 	public static function getTimeString(time:Float):String
@@ -27,7 +28,6 @@ class G
 		{
 			_saveGame = new FlxSave();
 			_saveGame.bind("CogLove");
-			_saveGame.erase();
 			if(_saveGame.data.highScore == null)
 				_saveGame.data.highScore = new Array<Int>();
 		}
@@ -60,8 +60,8 @@ class G
 
 	// ---- Level Info ----
 
-	private static var _levels:Array<String> = ["Level01", "Level02", "Level03", "Level04", "Level05", "Level06", "Level07"];
-	public static var levelNum(default, null):Int = 6;
+	private static var _levels:Array<String> = ["Level01", "Level02", "Level03", "Level04", "Level05", "Level06", "Level07", "Level08", "Level09", "Level10"];
+	public static var levelNum(default, null):Int = 0;
 
 	public static var gameOver(get, null):Bool;
 	private static function get_gameOver():Bool
