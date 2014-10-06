@@ -9,8 +9,3 @@ click to swing
 
 ## Winning
 Race against the clock to finish the levels as fast as possible.
-
-## TODO
-Level Design
-Camera?
-Sound
