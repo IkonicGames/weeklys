@@ -12,7 +12,11 @@ import flixel.util.FlxMath;
  */
 class TestBoardState extends FlxState
 {
+	var _gameInput:GameInput;
 	var _gameBoard:GameBoard;
+	var _blockSelector:BlockSelector;
+	var _blockQueue:BlockQueue;
+	var _metronome:Metronome;
 	var _currRow:Int;
 	/**
 	 * Function that is called up when to state is created to set it up. 
@@ -22,9 +26,15 @@ class TestBoardState extends FlxState
 		super.create();
 
 		_gameBoard = new GameBoard();
-		this.add(_gameBoard);
+		_blockQueue = new BlockQueue();
+		_blockSelector = new BlockSelector();
+		_metronome = new Metronome(_gameBoard, _blockQueue);
+		_gameInput = new GameInput(_gameBoard, _blockSelector);
 
-		this.add(new Metronome(_gameBoard));
+		this.add(_gameBoard);
+		this.add(_blockQueue);
+		this.add(_blockSelector);
+		this.add(_metronome);
 
 		_currRow = G.BRD_ROWS - 1;
 	}

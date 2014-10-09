@@ -9,6 +9,7 @@ import flixel.util.FlxPool;
 class GameBoard extends FlxSpriteGroup
 {
 	public var onGameOver(default, null):FlxSignal;
+	public var onClicked(default, null):FlxTypedSignal<GameBlock -> Void>;
 
 	public var gameOver(default, null):Bool;
 
@@ -27,6 +28,7 @@ class GameBoard extends FlxSpriteGroup
 		super();
 
 		onGameOver = new FlxSignal();
+		onClicked = new FlxTypedSignal<GameBlock -> Void>();
 
 		_blocks = new Array<Array<GameBlock>>();
 		_cleared = new Array<Array<Int>>();
@@ -50,8 +52,13 @@ class GameBoard extends FlxSpriteGroup
 
 				var block = new GameBlock();
 				blockCol.push(block);
-				block.setType(BlockType.EMPTY);
+				if(j > G.BRD_ROWS - G.BRD_START_ROWS - 1)
+					block.setType(BlockType.choose());
+				else
+					block.setType(BlockType.EMPTY);
 				block.setPosition(left + G.BLOCK_PAD + (G.BLOCK_PAD + G.BLOCK_SIZE) * i, G.BRD_TOP + G.BLOCK_PAD + (G.BLOCK_PAD + G.BLOCK_SIZE) * j);
+				block.setIndex(i, j);
+				block.onClicked.add(onBlockClicked);
 				this.add(block);
 			}
 		}
@@ -99,7 +106,7 @@ class GameBoard extends FlxSpriteGroup
 
 			typeCount++;
 
-			if(typeCount >= 2)
+			if(typeCount >= G.BRD_CLEAR_SIZE - 1)
 			{
 				addCleared(row, i, typeCount + 1, lastType);
 			}
@@ -178,6 +185,13 @@ class GameBoard extends FlxSpriteGroup
 		}
 	}
 
+	public function swapBlocks(block1:GameBlock, block2:GameBlock):Void
+	{
+		var type:Int = block1.type;
+		block1.setType(block2.type);
+		block2.setType(type);
+	}
+
 	private function addCleared(row:Int, lastCol:Int, count:Int, type:Int):Void
 	{
 		while(count > 0)
@@ -202,5 +216,10 @@ class GameBoard extends FlxSpriteGroup
 			return;
 
 		_blocks[col][row].setType(type);
+	}
+
+	private function onBlockClicked(block:GameBlock):Void
+	{
+		onClicked.dispatch(block);
 	}
 }
