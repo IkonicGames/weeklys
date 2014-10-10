@@ -52,10 +52,7 @@ class GameBoard extends FlxSpriteGroup
 
 				var block = new GameBlock();
 				blockCol.push(block);
-				if(j > G.BRD_ROWS - G.BRD_START_ROWS - 1)
-					block.setType(BlockType.choose());
-				else
-					block.setType(BlockType.EMPTY);
+				block.setType(BlockType.choose());
 				block.setPosition(left + G.BLOCK_PAD + (G.BLOCK_PAD + G.BLOCK_SIZE) * i, G.BRD_TOP + G.BLOCK_PAD + (G.BLOCK_PAD + G.BLOCK_SIZE) * j);
 				block.setIndex(i, j);
 				block.onClicked.add(onBlockClicked);
@@ -64,7 +61,7 @@ class GameBoard extends FlxSpriteGroup
 		}
 	}
 
-	public function checkRow(row:Int):Void
+	public function checkRow(row:Int, dir:Int = -1):Void
 	{
 		if(row >= G.BRD_ROWS)
 			return;
@@ -84,7 +81,7 @@ class GameBoard extends FlxSpriteGroup
 			
 			// check if block below or to the left was cleared and of the same color
 			if(row < G.BRD_ROWS && 
-					_cleared[i][row + 1] == currType ||
+					_cleared[i][row + dir] == currType ||
 					i > 0 && _cleared[i - 1][row] == currType)
 			{
 				addCleared(row, i, 1, currType);
@@ -168,7 +165,6 @@ class GameBoard extends FlxSpriteGroup
 				row = G.BRD_ROWS - j - 1;
 				currType = getBlockType(i, row);
 
-				// TODO this never happens
 				if(currType == BlockType.CLEARED)
 				{
 					setBlockType(i, row, BlockType.EMPTY);
@@ -190,6 +186,18 @@ class GameBoard extends FlxSpriteGroup
 		var type:Int = block1.type;
 		block1.setType(block2.type);
 		block2.setType(type);
+	}
+
+	public function fillBoard():Void
+	{
+		for(i in 0...G.BRD_COLS)
+		{
+			for(j in 0...G.BRD_ROWS)
+			{
+				if(_blocks[i][j].type == BlockType.EMPTY)
+					_blocks[i][j].setType(BlockType.choose());
+			}
+		}
 	}
 
 	private function addCleared(row:Int, lastCol:Int, count:Int, type:Int):Void

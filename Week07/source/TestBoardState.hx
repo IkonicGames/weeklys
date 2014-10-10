@@ -15,7 +15,6 @@ class TestBoardState extends FlxState
 	var _gameInput:GameInput;
 	var _gameBoard:GameBoard;
 	var _blockSelector:BlockSelector;
-	var _blockQueue:BlockQueue;
 	var _metronome:Metronome;
 	var _currRow:Int;
 	/**
@@ -26,13 +25,11 @@ class TestBoardState extends FlxState
 		super.create();
 
 		_gameBoard = new GameBoard();
-		_blockQueue = new BlockQueue();
 		_blockSelector = new BlockSelector();
-		_metronome = new Metronome(_gameBoard, _blockQueue);
+		_metronome = new Metronome(_gameBoard);
 		_gameInput = new GameInput(_gameBoard, _blockSelector);
 
 		this.add(_gameBoard);
-		this.add(_blockQueue);
 		this.add(_blockSelector);
 		this.add(_metronome);
 

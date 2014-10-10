@@ -10,17 +10,17 @@ class Metronome extends FlxSprite
 	public var onRowComplete:FlxSignal;
 
 	var _gameBoard:GameBoard;
-	var _blockQueue:BlockQueue;
 
 	var _currRow:Int;
+	var _iterDir:Int;
 
-	public function new(gameBoard:GameBoard, blockQueue:BlockQueue)
+	public function new(gameBoard:GameBoard)
 	{
 		super();
 
 		_gameBoard = gameBoard;
-		_blockQueue = blockQueue;
 		_currRow = G.BRD_ROWS;
+		_iterDir = -1;
 
 		this.makeGraphic(FlxG.width, 3);
 
@@ -33,19 +33,19 @@ class Metronome extends FlxSprite
 
 	private function onMoveComplete(?tween:FlxTween):Void
 	{
-		_currRow--;
-		if(_currRow < 0)
+		_currRow += _iterDir;
+		if(_currRow < 0 || _currRow > G.BRD_ROWS)
 		{
-			_currRow = G.BRD_ROWS;
+			_iterDir = -_iterDir;
 			_gameBoard.clearCleared();
 			_gameBoard.dropClearedBlocks();
-			_gameBoard.addBlockRow(_blockQueue.colors);
-			_blockQueue.randomizeColors();
-			FlxTween.linearMotion(this, 0, this.y, 0, _gameBoard.bottom, 1, true, {complete:onMoveComplete});
-			return;
+			_gameBoard.fillBoard();
 		}
 
-		_gameBoard.checkRow(_currRow);
+		if(_iterDir < 0)
+			_gameBoard.checkRow(_currRow, -_iterDir);
+		else
+			_gameBoard.checkRow(_currRow - 1, -_iterDir);
 		var rowY = _gameBoard.top + (G.BLOCK_PAD + G.BLOCK_SIZE) * _currRow;
 		FlxTween.linearMotion(this, 0, this.y, 0, rowY, 1, true, {complete:onMoveComplete});
 	}
