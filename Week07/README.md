@@ -17,3 +17,11 @@ A 'metronome' moves from the bottom to the top.
 Make rows by swapping adjacent blocks.
 
 Game over when a row of blocks breaks the top of the board.
+
+## Instructions
+
+Horizontally match three or more of any of the colors to clear them from the board.  Gain multipliers by chaining to clear more blocks.  Chaining occurs when you match three or more and that same color block is directly above one fo the original matched block or another chained block.
+
+## TODO
+
+*  Instructions

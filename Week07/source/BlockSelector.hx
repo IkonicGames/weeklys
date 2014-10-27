@@ -11,7 +11,8 @@ class BlockSelector extends FlxSprite
 	{
 		super();
 
-		this.makeGraphic(8, 8);
+		this.loadGraphic(AssetPaths.selection__png);
+		this.blend = flash.display.BlendMode.ADD;
 	}
 
 	public function select(block:GameBlock):Void
@@ -19,6 +20,7 @@ class BlockSelector extends FlxSprite
 		selected = block;
 		setPosition(selected.x, selected.y);
 		visible = true;
+		this.color = block.color;
 	}
 
 	public function clearSelection():Void

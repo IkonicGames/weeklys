@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<!-- Score and Multipliaer -->
+	<chrome src="ui/panel" id="panel" x="25" y="25" width="270" height="430" slice9="10,10,38,38">
+		<anchor x="left" y="top" x-flush="left" y-flush="top" />
+	</chrome>
+	
+	<text font="leaguegothic" id="label_match" width="320" align="center" size="48" text="Match Three">
+		<anchor x="panel.center" y="panel.top" x-flush="center" y-flush="top" />
+	</text>
+	<text font="leaguegothic" id="text_match" width="280" size="24" text="Horizontally match 3 or more of any of the colors to clear them from the board.">
+		<anchor x="panel.left" y="label_match.bottom" x-flush="left" y-flush="top" />
+	</text>
+
+	<text font="leaguegothic" id="label_mult" width="320" align="center" size="48" text="Build Multiplier">
+		<anchor x="panel.center" y="text_match.bottom" x-flush="center" y-flush="top" />
+	</text>
+	<text font="leaguegothic" id="text_mult" width="280" size="24" text="Gain score multipler by chaining blocks.">
+		<anchor x="panel.left" y="label_mult.bottom" x-flush="left" y-flush="top" />
+	</text>
+
+	<text font="leaguegothic" id="label_chain" width="320" align="center" size="48" text="Chaining">
+		<anchor x="panel.center" y="text_mult.bottom" x-flush="center" y-flush="top" />
+	</text>
+	<text font="leaguegothic" id="text_chain" width="280" size="24" text="Chaining occurs when you place the same color block above a cleared block." >
+		<anchor x="panel.left" y="label_chain.bottom" x-flush="left" y-flush="top" />
+	</text>
+
+	<text font="leaguegothic" id="play_again" width="200" align="center" size="32" text="Click to Play">
+		<anchor x="panel.center" y="panel.bottom" x-flush="center" y-flush="bottom" />
+	</text>
+</data>

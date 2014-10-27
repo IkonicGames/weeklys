@@ -10,8 +10,11 @@ import flixel.util.FlxMath;
 /**
  * A FlxState which can be used for the actual gameplay.
  */
-class TestBoardState extends FlxState
+class PlayState extends FlxState
 {
+	var _score:Score;
+	var _gameHUD:GameHUD;
+
 	var _gameInput:GameInput;
 	var _gameBoard:GameBoard;
 	var _blockSelector:BlockSelector;
@@ -24,11 +27,18 @@ class TestBoardState extends FlxState
 	{
 		super.create();
 
+		_score = new Score();
+		_gameHUD = new GameHUD(_score);
+		this.openSubState(_gameHUD);
+		this.persistentUpdate = true;
+
 		_gameBoard = new GameBoard();
+		_score.attachToBoard(_gameBoard);
 		_blockSelector = new BlockSelector();
 		_metronome = new Metronome(_gameBoard);
 		_gameInput = new GameInput(_gameBoard, _blockSelector);
 
+		this.add(new GameGrid());
 		this.add(_gameBoard);
 		this.add(_blockSelector);
 		this.add(_metronome);

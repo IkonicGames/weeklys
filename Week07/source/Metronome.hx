@@ -3,16 +3,18 @@ package ;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import flixel.util.FlxSignal;
+import flixel.util.FlxTimer;
 
 class Metronome extends FlxSprite
 {
-	public var onRowComplete:FlxSignal;
+	public var onSweepComplete(default, null):FlxSignal;
+	public var sweepsLeft(default, null):Int;
 
 	var _gameBoard:GameBoard;
 
 	var _currRow:Int;
-	var _iterDir:Int;
 
 	public function new(gameBoard:GameBoard)
 	{
@@ -20,33 +22,43 @@ class Metronome extends FlxSprite
 
 		_gameBoard = gameBoard;
 		_currRow = G.BRD_ROWS;
-		_iterDir = -1;
 
-		this.makeGraphic(FlxG.width, 3);
+		onSweepComplete = new FlxSignal();
+		sweepsLeft = G.SWEEPS;
 
-		onRowComplete = new FlxSignal();
+		//this.makeGraphic(FlxG.width, 3);
+		this.loadGraphic(AssetPaths.metronome__png);
+		this.origin.y = -this.height / 2;
 
-		this.y = _gameBoard.bottom;
+		this.x = -18;
+		this.y = G.BRD_BOTTOM - this.height / 2;
 
-		onMoveComplete();
+		var timer = new FlxTimer(0.5, onStartTimer);
+		timer.start(0.5, onStartTimer);
 	}
 
 	private function onMoveComplete(?tween:FlxTween):Void
 	{
-		_currRow += _iterDir;
-		if(_currRow < 0 || _currRow > G.BRD_ROWS)
+		_currRow--;
+		if(_currRow < 0)
 		{
-			_iterDir = -_iterDir;
+			_currRow = G.BRD_ROWS;
 			_gameBoard.clearCleared();
-			_gameBoard.dropClearedBlocks();
+			_gameBoard.dropClearedBlocks(1);
 			_gameBoard.fillBoard();
+			sweepsLeft--;
+			onSweepComplete.dispatch();
+			FlxTween.linearMotion(this,this.x, this.y, this.x, G.BRD_BOTTOM - this.height / 2, 2, true, {complete:onMoveComplete});
+			return;
 		}
 
-		if(_iterDir < 0)
-			_gameBoard.checkRow(_currRow, -_iterDir);
-		else
-			_gameBoard.checkRow(_currRow - 1, -_iterDir);
-		var rowY = _gameBoard.top + (G.BLOCK_PAD + G.BLOCK_SIZE) * _currRow;
-		FlxTween.linearMotion(this, 0, this.y, 0, rowY, 1, true, {complete:onMoveComplete});
+		_gameBoard.checkRow(_currRow, 1);
+		var rowY = G.BRD_TOP + (G.BLOCK_PAD + G.BLOCK_SIZE) * _currRow;
+		FlxTween.linearMotion(this, this.x, this.y, this.x, rowY - this.height / 2, 1, true, {complete:onMoveComplete});
+	}
+
+	private function onStartTimer(?timer:FlxTimer):Void
+	{
+		onMoveComplete();
 	}
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<data>
+	<!-- Score and Multipliaer -->
+	<chrome src="ui/panel" id="game_info" x="-10" y="10" width="200" height="64" slice9="10,10,38,38">
+	</chrome>
+	<text font="leaguegothic" id="labal_score" size="22" text="Score:">
+		<anchor x="left" y="game_info.top" x-flush="left" y-flush="top" />
+	</text>
+	<text font="leaguegothic" id="labal_mult" size="22" text="Mult:">
+		<anchor x="left" y="game_info.bottom" x-flush="left" y-flush="bottom" />
+	</text>
+	<text font="leaguegothic" id="label_score_value" size="22" text="00000000">
+		<anchor x="game_info.right" y="game_info.top" x-flush="right" y-flush="top" />
+	</text>
+	<text font="leaguegothic" id="label_mult_value" size="22" text="x1">
+		<anchor x="game_info.right" y="game_info.bottom" x-flush="right" y-flush="bottom" />
+	</text>
+
+	<!-- Sweeps -->
+	<chrome src="ui/panel" id="panel_sweeps" x="210" y="10" width="120" height="64" slice9="10,10,38,38" />
+	<text font="leaguegothic" id="label_sweeps" size="22" text="Sweeps" >
+		<anchor x="panel_sweeps.center" y="panel_sweeps.top" x-flush="center" y-flush="top" />
+	</text>
+	<text font="leaguegothic" id="label_sweeps_value" size="22" text="15" >
+		<anchor x="panel_sweeps.center" y="panel_sweeps.bottom" x-flush="center" y-flush="bottom" />
+	</text>
+</data>

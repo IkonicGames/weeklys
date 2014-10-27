@@ -1,6 +1,7 @@
 package ;
 
 import flixel.FlxG;
+import flixel.util.FlxPoint;
 
 class GameInput
 {
@@ -11,32 +12,27 @@ class GameInput
 	{
 		_gameBoard = gameBoard;
 		_gameBoard.onClicked.add(onBlockClicked);
+		_gameBoard.onMouseOut.add(onBlockMouseOut);
 
 		_blockSelector = blockSelector;
 	}
 
 	private function onBlockClicked(block:GameBlock):Void
 	{
-		if(block == _blockSelector.selected)
-		{
-			_blockSelector.clearSelection();
-			return;
-		}
+		_blockSelector.select(block);
+	}
 
+	private function onBlockRelease(block:GameBlock):Void
+	{
+		_blockSelector.clearSelection();
+	}
+
+	private function onBlockMouseOut(block:GameBlock, dir:FlxPoint):Void
+	{
 		if(_blockSelector.selected == null)
-		{
-			_blockSelector.select(block);
 			return;
-		}
 
-		var selected = _blockSelector.selected;
-		var horizontal = (block.col == selected.col - 1 || block.col == selected.col + 1);
-		var vertical = (block.row == selected.row - 1 || block.row == selected.row + 1);
-		if((!horizontal && vertical) || (horizontal && !vertical))
-		{
-			_gameBoard.swapBlocks(block, selected);
-		}
-
+		_gameBoard.swapBlocks(block, dir);
 		_blockSelector.clearSelection();
 	}
 }
