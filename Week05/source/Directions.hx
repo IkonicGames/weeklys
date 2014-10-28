@@ -32,9 +32,9 @@ class Directions extends FlxGroup
 		this.add(_txtMove);
 	}
 
-	override public function update():Void
+	override public function update(dt:Float):Void
 	{
-		super.update();
+		super.update(dt);
 
 		if(FlxG.keys.justPressed.ANY)
 			FlxG.state.remove(this);

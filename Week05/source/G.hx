@@ -1,7 +1,20 @@
 package ;
 
+import openfl.Assets;
+import flixel.FlxG;
+import flixel.graphics.frames.FlxBitmapFont;
+
 class G
 {
+	public static var FONT(get, null):FlxBitmapFont;
+	private static inline function get_FONT():FlxBitmapFont
+	{
+		if(FONT == null)
+			FONT = FlxBitmapFont.fromAngelCode(AssetPaths.league_gothic_0__png, Xml.parse(Assets.getText(AssetPaths.league_gothic__fnt)));
+
+		return FONT;
+	}
+
 	public static inline var PLR_GRND_ACCEL:Float = 150;
 	public static inline var PLR_GRND_SPEED:Float = 150;
 	public static inline var PLR_GRND_ROT_SPEED:Float = 270;

@@ -2,9 +2,9 @@ package ;
 
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.group.FlxTypedGroup;
-import flixel.util.FlxMath;
-import flixel.util.FlxRandom;
+import flixel.group.FlxGroup;
+import flixel.math.FlxMath;
+import flixel.math.FlxRandom;
 import flixel.util.FlxPool;
 
 class ObjectSpawner<T:FlxObject> extends FlxTypedGroup<T>
@@ -36,15 +36,15 @@ class ObjectSpawner<T:FlxObject> extends FlxTypedGroup<T>
 		_heightMax = heightMax;
 	}
 
-	override public function update():Void
+	override public function update(dt:Float):Void
 	{
-		super.update();
+		super.update(dt);
 
 		_currElapsed += FlxG.elapsed;
 
 		// just get what the current maximum number of edibles there can be
 		var cnt:Int = cast FlxMath.lerp(_cntMin, _cntMax, FlxMath.bound(0, 1, _currElapsed / _cntTime));
-		if(this.countLiving() < cnt && FlxRandom.chanceRoll(_chance))
+		if(this.countLiving() < cnt && FlxG.random.bool(_chance))
 			spawnObject();
 	}
 
@@ -52,8 +52,8 @@ class ObjectSpawner<T:FlxObject> extends FlxTypedGroup<T>
 	{
 		var obj = _pool.get();
 
-		var ex = FlxRandom.chanceRoll(50) ? -20 : FlxG.width + 20;
-		var ey = FlxG.height * FlxRandom.floatRanged(_heightMin, _heightMax);
+		var ex = FlxG.random.bool(50) ? -20 : FlxG.width + 20;
+		var ey = FlxG.height * FlxG.random.float(_heightMin, _heightMax);
 		obj.reset(ex, ey);
 		this.add(obj);
 	}

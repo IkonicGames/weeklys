@@ -3,18 +3,17 @@ package ;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
-import flixel.effects.particles.FlxEmitterExt;
 import flixel.effects.particles.FlxEmitter;
 import flixel.util.FlxPool;
 import flixel.util.FlxColor;
 import flixel.system.FlxSound;
 import flixel.effects.particles.FlxParticle;
-import flixel.util.FlxMath;
+import flixel.math.FlxMath;
 
 class Explosions extends FlxGroup
 {
 
-	var _emitters:FlxPool<FlxEmitterExt>;
+	var _emitters:FlxPool<FlxEmitter>;
 	var _poppers:FlxPool<FlxEmitter>;
 
 	var _sndExplosions:FlxSound;
@@ -25,7 +24,7 @@ class Explosions extends FlxGroup
 	{
 		super();
 
-		_emitters = new FlxPool<FlxEmitterExt>(FlxEmitterExt);
+		_emitters = new FlxPool<FlxEmitter>(FlxEmitter);
 		_poppers = new FlxPool<FlxEmitter>(FlxEmitter);
 
 		_sndExplosions = FlxG.sound.load(AssetPaths.Explosion__mp3);
@@ -33,11 +32,11 @@ class Explosions extends FlxGroup
 		_player = player;
 	}
 
-	override public function update():Void
+	override public function update(dt:Float):Void
 	{
-		super.update();
+		super.update(dt);
 
-		this.forEachOfType(FlxEmitterExt, function(emitter:FlxEmitterExt):Void {
+		this.forEachOfType(FlxEmitter, function(emitter:FlxEmitter):Void {
 			if(!emitter.members[0].active)
 			{
 				emitter.kill();
@@ -80,18 +79,16 @@ class Explosions extends FlxGroup
 		}
 	}
 
-	private function getEmitter():FlxEmitterExt
+	private function getEmitter():FlxEmitter
 	{
 		var emitter = _emitters.get();
 		if(emitter.members.length == 0)
 		{
-			emitter.makeParticles(AssetPaths.pixels__png, G.BOMB_EXPLOSION_QTY);
+			emitter.loadParticles(AssetPaths.pixels__png, G.BOMB_EXPLOSION_QTY);
 		}
-		emitter.endAlpha.set(0, 0);
-		emitter.startScale.set(2, 2);
-		emitter.endScale.set(2, 2);
-		emitter.setXSpeed(80, 100);
-		emitter.setYSpeed(80, 100);
+		emitter.alpha.end.set(0, 0);
+		emitter.scale.set(2);
+		emitter.speed.set(0, 100);
 		this.add(emitter);
 
 		return emitter;
@@ -102,14 +99,12 @@ class Explosions extends FlxGroup
 		var popper = _poppers.get();
 		if(popper.members.length == 0)
 		{
-			popper.makeParticles(AssetPaths.Circle__png, 1);
+			popper.loadParticles(AssetPaths.Circle__png, 1);
 		}
-		popper.startAlpha.set(0.5, 0.5);
-		popper.endAlpha.set(0, 0);
-		popper.startScale.set(2, 2);
-		popper.endScale.set(2, 2);
-		popper.setXSpeed(0, 0);
-		popper.setYSpeed(0, 0);
+		popper.alpha.start.set(0.5, 0.5);
+		popper.alpha.end.set(0, 0);
+		popper.scale.set(2);
+		popper.speed.set(0);
 		this.add(popper);
 
 		return popper;

@@ -4,13 +4,11 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.FlxObject;
-import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.util.FlxMath;
+import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 import flixel.group.FlxGroup;
 import flixel.system.FlxSound;
-import flixel.text.FlxText;
 
 /**
  * A FlxState which can be used for the actual gameplay.
@@ -42,7 +40,7 @@ class PlayState extends FlxState
 	{
 		super.create();
 		
-		FlxG.camera.bgColor = FlxColor.GOLDENROD;
+		FlxG.camera.bgColor = FlxColor.ORANGE;
 
 		_scoreMult = 1;
 		_scoreMultPool = 0;
@@ -106,9 +104,9 @@ class PlayState extends FlxState
 	/**
 	 * Function that is called once every frame.
 	 */
-	override public function update():Void
+	override public function update(dt:Float):Void
 	{
-		super.update();
+		super.update(dt);
 
 		if(_player.inGround != FlxG.overlap(_player, _ground, onOverlapGround))
 		{

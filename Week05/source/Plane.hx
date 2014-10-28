@@ -2,8 +2,7 @@ package ;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxRandom;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 
 class Plane extends FlxSprite
 {
@@ -21,9 +20,9 @@ class Plane extends FlxSprite
 		resetBombDrop();
 	}
 
-	override public function update():Void
+	override public function update(dt:Float):Void
 	{
-		super.update();
+		super.update(dt);
 
 		if(!this.inWorldBounds())
 			this.kill();
@@ -46,7 +45,7 @@ class Plane extends FlxSprite
 		_bombDist = 0;
 
 		this.velocity.y = 0;
-		this.velocity.x = FlxRandom.floatRanged(G.PLN_SPD_MIN, G.PLN_SPD_MAX);
+		this.velocity.x = FlxG.random.float(G.PLN_SPD_MIN, G.PLN_SPD_MAX);
 		if(x > FlxG.width)
 			this.velocity.x = -this.velocity.x;
 
@@ -55,7 +54,7 @@ class Plane extends FlxSprite
 
 	function resetBombDrop():Void
 	{
-		_nextDrop = FlxRandom.floatRanged(G.PLN_BOMB_FREQ_MIN, G.PLN_BOMB_FREQ_MAX);
+		_nextDrop = FlxG.random.float(G.PLN_BOMB_FREQ_MIN, G.PLN_BOMB_FREQ_MAX);
 		_bombDist = 0;
 	}
 }

@@ -2,7 +2,7 @@ package ;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxRandom;
+import flixel.math.FlxRandom;
 
 class Edible extends FlxSprite
 {
@@ -17,9 +17,9 @@ class Edible extends FlxSprite
 		this.scale.set(2, 2);
 	}
 
-	override public function update():Void
+	override public function update(dt:Float):Void
 	{
-		super.update();
+		super.update(dt);
 
 		if(!this.inWorldBounds())
 			this.kill();
@@ -30,7 +30,7 @@ class Edible extends FlxSprite
 		super.reset(X, Y);
 
 		this.velocity.y = 0;
-		this.velocity.x = FlxRandom.floatRanged(G.EDBL_SPD_MIN, G.EDBL_SPD_MAX);
+		this.velocity.x = FlxG.random.float(G.EDBL_SPD_MIN, G.EDBL_SPD_MAX);
 		if(x > FlxG.width)
 			this.velocity.x = -this.velocity.x;
 	}

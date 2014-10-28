@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup;
 import flixel.text.FlxText;
-import flixel.util.FlxMath;
+import flixel.math.FlxMath;
 
 class GameHUD extends FlxGroup
 {

@@ -2,9 +2,9 @@ package ;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.util.FlxVector;
-import flixel.util.FlxAngle;
-import flixel.util.FlxMath;
+import flixel.math.FlxVector;
+import flixel.math.FlxAngle;
+import flixel.math.FlxMath;
 import flixel.util.FlxSpriteUtil;
 import flixel.util.FlxColor;
 import flixel.addons.effects.FlxTrail;
@@ -45,9 +45,9 @@ class Player extends FlxSprite
 		_sndLand = FlxG.sound.load(AssetPaths.Jump__mp3);
 	}
 
-	override public function update():Void
+	override public function update(dt:Float):Void
 	{
-		super.update();
+		super.update(dt);
 
 		updateInput();
 		updateMovement();
